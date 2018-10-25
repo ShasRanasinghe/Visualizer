@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -126,10 +127,10 @@ public class FXMLController implements Initializable {
      *
      * @return The task object
      */
-    private Task<?> getTask() {
-        return new Task<Void>() {
+    private Task<Sensors> getTask() {
+        Task task = new Task<Sensors>() {
             @Override
-            protected Void call() throws Exception {
+            protected Sensors call() throws Exception {
                 Sensors message;
                 while (true) {
                     if (isCancelled()) {
@@ -145,7 +146,7 @@ public class FXMLController implements Initializable {
 
                     try {
                         message = Sensors_Message.Sensors.parseFrom(update);
-                        updateSensors(message);
+                        updateValue(message);
                     } catch (InvalidProtocolBufferException ex) {
                         System.out.println("Something went wrong");
                         //Invalid data has been through the port
@@ -154,6 +155,12 @@ public class FXMLController implements Initializable {
                 return null;
             }
         };
+
+        task.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+            updateSensors((Sensors) newValue);
+        });
+
+        return task;
     }
 
     /**
