@@ -11,7 +11,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -146,8 +145,7 @@ public class FXMLController implements Initializable {
 
                     try {
                         message = Sensors_Message.Sensors.parseFrom(update);
-                        System.out.println(message.toString());
-                        updateGUI(message);
+                        updateSensors(message);
                     } catch (InvalidProtocolBufferException ex) {
                         System.out.println("Something went wrong");
                         //Invalid data has been through the port
@@ -159,11 +157,11 @@ public class FXMLController implements Initializable {
     }
 
     /**
-     * Update all the fields
+     * Update sensors
      *
-     * @param message Message object with update
+     * @param message message object updated with the last message
      */
-    private void updateGUI(Sensors message) {
+    private void updateSensors(Sensors message) {
         accel.setText(Float.toString(message.getAccel()));
         breaking.setText(Float.toString(message.getBreaking()));
         gear.setText(Integer.toString(message.getGear()));
@@ -263,8 +261,8 @@ public class FXMLController implements Initializable {
      */
     @FXML
     private void clear() {
-        for (Node node : gridPane.getChildren()) {
+        gridPane.getChildren().stream().filter((node) -> (node instanceof JFXTextField)).forEachOrdered((node) -> {
             ((JFXTextField) node).clear();
-        }
+        });
     }
 }
