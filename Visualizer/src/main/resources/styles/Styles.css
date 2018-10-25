@@ -1,3 +1,7 @@
 .button {
     -fx-font-weight: bold;
 }
+
+.mygridStyle Line {
+  -fx-stroke: black;
+}
