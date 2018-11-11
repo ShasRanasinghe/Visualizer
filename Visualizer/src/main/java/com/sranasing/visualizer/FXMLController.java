@@ -8,14 +8,18 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import org.controlsfx.control.ListSelectionView;
 import org.controlsfx.control.Notifications;
 import org.zeromq.ZMQ;
 
@@ -97,7 +101,13 @@ public class FXMLController implements Initializable {
     private JFXTextField count;
 
     @FXML
-    private LineChart<?, ?> chart;
+    private LineChart<Number, Number> chart;
+
+    @FXML
+    private ListSelectionView<Series<Number, Number>> sensorSelector;
+
+    @FXML
+    private LineChart<Number, Number> plot;
 
     //Initialize the context of the device
     private ZMQ.Context context;
@@ -112,7 +122,27 @@ public class FXMLController implements Initializable {
     private Task updateStatusTask;
 
     //data series used in the line chart
-    private XYChart.Series series;
+    private Series<Number, Number> series;
+
+    //List containing all the available Sensors
+    private ObservableList<Series<Number, Number>> sensorDataList;
+
+    //Define the series used for the sensors
+    private Series<Number, Number> accel_Data;
+    private Series<Number, Number> breaking_Data;
+    private Series<Number, Number> gear_Data;
+    private Series<Number, Number> steer_Data;
+    private Series<Number, Number> angle_Data;
+    private Series<Number, Number> cuLapTime_Data;
+    private Series<Number, Number> distFromStart_Data;
+    private Series<Number, Number> totalDistFromStart_Data;
+    private Series<Number, Number> distRaced_Data;
+    private Series<Number, Number> lastLapTime_Data;
+    private Series<Number, Number> rpm_Data;
+    private Series<Number, Number> speedX_Data;
+    private Series<Number, Number> speedY_Data;
+    private Series<Number, Number> distToMiddle_Data;
+    private Series<Number, Number> fps_Data;
 
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
@@ -128,8 +158,72 @@ public class FXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        series = new XYChart.Series<>();
+        intitializeSeries();
+
+        initializeListView();
+
+        //Test Chart
+        series = new Series<>();
         chart.getData().add(series);
+    }
+
+    /**
+     * Initialize the series that would hold the sensor data to be plotted
+     */
+    private void intitializeSeries() {
+        accel_Data = new Series<>();
+        accel_Data.setName("Acceleration");
+        breaking_Data = new Series<>();
+        breaking_Data.setName("Breaking");
+        gear_Data = new Series<>();
+        gear_Data.setName("Gear");
+        steer_Data = new Series<>();
+        steer_Data.setName("Steering");
+        angle_Data = new Series<>();
+        angle_Data.setName("Angle");
+        cuLapTime_Data = new Series<>();
+        cuLapTime_Data.setName("Current Lap Time");
+        distFromStart_Data = new Series<>();
+        distFromStart_Data.setName("Distance From Start");
+        totalDistFromStart_Data = new Series<>();
+        totalDistFromStart_Data.setName("Total Distance From Start");
+        distRaced_Data = new Series<>();
+        distRaced_Data.setName("Distance Raced");
+        lastLapTime_Data = new Series<>();
+        lastLapTime_Data.setName("Last Lap Time");
+        rpm_Data = new Series<>();
+        rpm_Data.setName("RPM");
+        speedX_Data = new Series<>();
+        speedX_Data.setName("SpeedX");
+        speedY_Data = new Series<>();
+        speedY_Data.setName("SpeedY");
+        distToMiddle_Data = new Series<>();
+        distToMiddle_Data.setName("Distance To Middle");
+        fps_Data = new Series<>();
+        fps_Data.setName("FPS");
+    }
+
+    private void initializeListView() {
+        sensorDataList = FXCollections.observableArrayList();
+        sensorDataList.addAll(
+                accel_Data,
+                breaking_Data,
+                gear_Data,
+                steer_Data,
+                angle_Data,
+                cuLapTime_Data,
+                distFromStart_Data,
+                totalDistFromStart_Data,
+                distRaced_Data,
+                lastLapTime_Data,
+                rpm_Data,
+                speedX_Data,
+                speedY_Data,
+                distToMiddle_Data,
+                fps_Data);
+
+        sensorSelector.setTargetItems(plot.getData());
+        sensorSelector.setSourceItems(sensorDataList);
     }
 
     /**
@@ -179,6 +273,22 @@ public class FXMLController implements Initializable {
      * @param message message object updated with the last message
      */
     private void updateSensors(Sensors message) {
+        accel_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getAccel()));
+        breaking_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getBreaking()));
+        gear_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getGear()));
+        steer_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSteer()));
+        angle_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getAngle()));
+        cuLapTime_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getCuLapTime()));
+        distFromStart_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistFromStart()));
+        totalDistFromStart_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getTotalDistFromStart()));
+        distRaced_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistRaced()));
+        lastLapTime_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getLastLapTime()));
+        rpm_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getRpm()));
+        speedX_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSpeedX()));
+        speedY_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSpeedY()));
+        distToMiddle_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistToMiddle()));
+        fps_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getFps()));
+
         accel.setText(Float.toString(message.getAccel()));
         breaking.setText(Float.toString(message.getBreaking()));
         gear.setText(Integer.toString(message.getGear()));
@@ -203,7 +313,6 @@ public class FXMLController implements Initializable {
         posZ.setText(Float.toString(message.getPosZ()));
         fps.setText(Float.toString(message.getFps()));
         count.setText(Integer.toString(message.getCount()));
-        //series.getData().add(new XYChart.Data<>(message.getCount(), message.getDistFromStart()));
     }
 
     /**

@@ -8,191 +8,167 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.ListSelectionView?>
 
-
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
+<VBox prefHeight="426.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
    <children>
-      <AnchorPane prefHeight="10.0" prefWidth="600.0">
+      <AnchorPane prefHeight="10.0" prefWidth="600.0" VBox.vgrow="NEVER">
          <children>
             <Button mnemonicParsing="false" onAction="#connect" prefHeight="10.0" prefWidth="600.0" text="Connect" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
-      <TabPane>
+      <TabPane prefHeight="374.0" prefWidth="725.0" VBox.vgrow="ALWAYS">
          <tabs>
             <Tab text="Labels">
                <content>
-                  <VBox>
+                  <StackPane>
                      <children>
-                        <StackPane>
-                           <children>
-                              <GridPane fx:id="gridPane" gridLinesVisible="true" styleClass="mygridStyle" stylesheets="@../styles/Styles.css">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <JFXTextField fx:id="accel" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Acceleration" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="breaking" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Break" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="gear" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Gear" unFocusColor="#4d4d4d00" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="steer" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Steering" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="meta" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Meta" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="clutch" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Clutch" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="focus" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Focus" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="angle" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Angle" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="cuLapTime" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Current Lap Time" unFocusColor="#4d4d4d00" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="damage" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Damage" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="distFromStart" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance From Start" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="totalDistFromStart" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Total Distance From Start" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="distRaced" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance Raced" unFocusColor="#4d4d4d00" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="fuel" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Fuel" unFocusColor="#4d4d4d00" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="lastLapTime" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Last Lap Time" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="racePos" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Race Position" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="rpm" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="RPM" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="speedX" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed X" unFocusColor="#4d4d4d00" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="speedY" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed Y" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="speedZ" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed Z" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="distToMiddle" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance To Middle" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="posZ" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Position Z" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="fps" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="FPS" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="count" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Count" stylesheets="@../styles/Styles.css" unFocusColor="TRANSPARENT" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets left="5.0" />
-                                       </GridPane.margin>
-                                    </JFXTextField>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </StackPane>
-                        <GridPane>
+                        <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" styleClass="mygridStyle" stylesheets="@../styles/Styles.css">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <AnchorPane>
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="86.0" text="Reset" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane GridPane.columnIndex="1">
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#clear" text="Clear" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
+                              <JFXTextField fx:id="accel" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Acceleration" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="breaking" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Break" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="gear" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Gear" unFocusColor="#4d4d4d00" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="steer" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Steering" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="meta" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Meta" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="clutch" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Clutch" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="focus" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Focus" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="angle" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Angle" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="cuLapTime" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Current Lap Time" unFocusColor="#4d4d4d00" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="damage" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Damage" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="distFromStart" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance From Start" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="totalDistFromStart" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Total Distance From Start" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="distRaced" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance Raced" unFocusColor="#4d4d4d00" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="fuel" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Fuel" unFocusColor="#4d4d4d00" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="lastLapTime" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Last Lap Time" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="racePos" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Race Position" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="rpm" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="RPM" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="speedX" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed X" unFocusColor="#4d4d4d00" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="speedY" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed Y" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="speedZ" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed Z" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="distToMiddle" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance To Middle" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="posZ" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Position Z" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="fps" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="FPS" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="count" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Count" stylesheets="@../styles/Styles.css" unFocusColor="TRANSPARENT" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </JFXTextField>
                            </children>
                         </GridPane>
                      </children>
-                  </VBox>
+                  </StackPane>
                </content>
             </Tab>
             <Tab text="Chart">
@@ -211,7 +187,47 @@
                   </AnchorPane>
               </content>
             </Tab>
+            <Tab text="ChartTest">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="600.0">
+                     <left>
+                        <ListSelectionView fx:id="sensorSelector" orientation="VERTICAL" prefHeight="372.0" prefWidth="202.0" BorderPane.alignment="CENTER" />
+                     </left>
+                     <center>
+                        <LineChart fx:id="plot" BorderPane.alignment="CENTER">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </center>
+                  </BorderPane>
+               </content>
+            </Tab>
          </tabs>
       </TabPane>
+      <GridPane VBox.vgrow="NEVER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="86.0" text="Reset" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#clear" text="Clear" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
    </children>
 </VBox>
