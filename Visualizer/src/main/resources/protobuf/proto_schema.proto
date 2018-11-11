@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+package TORCS_Sensors;
+
+option java_outer_classname = "Sensors_Message";
+
+message Sensors {
+	optional float accel = 1;
+	optional float breaking = 2;
+	optional int32 gear = 3;
+	optional float steer = 4;
+	optional int32 meta = 5;
+	optional float clutch = 6;
+	optional int32 focus = 7;
+	optional float angle = 8;
+	optional float cuLapTime = 9;
+	optional int32 damage = 10;
+	optional float distFromStart = 11;
+	optional float totalDistFromStart = 12;
+	optional float distRaced = 13;
+	optional float fuel = 14;
+	optional float lastLapTime = 15;
+	optional int32 racePos = 16;
+	optional float rpm = 17;
+	optional float speedX = 18;
+	optional float speedY = 19;
+	optional float speedZ = 20;
+	optional float distToMiddle = 21;
+	optional float posZ = 22;
+	optional float fps = 23;
+	optional int32 count = 24;
+}
