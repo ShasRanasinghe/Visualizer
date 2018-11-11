@@ -12,6 +12,8 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -94,6 +96,9 @@ public class FXMLController implements Initializable {
     @FXML
     private JFXTextField count;
 
+    @FXML
+    private LineChart<?, ?> chart;
+
     //Initialize the context of the device
     private ZMQ.Context context;
 
@@ -105,6 +110,9 @@ public class FXMLController implements Initializable {
 
     //task used to update the sensors
     private Task updateStatusTask;
+
+    //data series used in the line chart
+    private XYChart.Series series;
 
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
@@ -120,6 +128,8 @@ public class FXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        series = new XYChart.Series<>();
+        chart.getData().add(series);
     }
 
     /**
@@ -127,7 +137,7 @@ public class FXMLController implements Initializable {
      *
      * @return The task object
      */
-    private Task<Sensors> getTask() {
+    private Task<Sensors> getPortListenerTask() {
         Task task = new Task<Sensors>() {
             @Override
             protected Sensors call() throws Exception {
@@ -193,6 +203,7 @@ public class FXMLController implements Initializable {
         posZ.setText(Float.toString(message.getPosZ()));
         fps.setText(Float.toString(message.getFps()));
         count.setText(Integer.toString(message.getCount()));
+        //series.getData().add(new XYChart.Data<>(message.getCount(), message.getDistFromStart()));
     }
 
     /**
@@ -240,7 +251,7 @@ public class FXMLController implements Initializable {
         }
 
         //Get updates from publisher
-        updateStatusTask = getTask();
+        updateStatusTask = getPortListenerTask();
         Thread th = new Thread(updateStatusTask);
         th.setDaemon(true);
         th.start();
