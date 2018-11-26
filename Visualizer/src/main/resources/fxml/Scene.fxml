@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.ListSelectionView?>
 
-<VBox prefHeight="426.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
+<VBox prefHeight="502.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
    <children>
       <AnchorPane prefHeight="10.0" prefWidth="600.0" VBox.vgrow="NEVER">
          <children>
@@ -25,176 +27,11 @@
       </AnchorPane>
       <TabPane prefHeight="374.0" prefWidth="725.0" VBox.vgrow="ALWAYS">
          <tabs>
-            <Tab text="Labels">
-               <content>
-                  <StackPane>
-                     <children>
-                        <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" styleClass="mygridStyle" stylesheets="@../styles/Styles.css">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <JFXTextField fx:id="accel" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Acceleration" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="breaking" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Break" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="gear" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Gear" unFocusColor="#4d4d4d00" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="steer" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Steering" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="meta" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Meta" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="clutch" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Clutch" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="focus" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Focus" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="angle" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Angle" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="cuLapTime" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Current Lap Time" unFocusColor="#4d4d4d00" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="damage" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Damage" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="distFromStart" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance From Start" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="totalDistFromStart" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Total Distance From Start" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="distRaced" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance Raced" unFocusColor="#4d4d4d00" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="fuel" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Fuel" unFocusColor="#4d4d4d00" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="lastLapTime" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Last Lap Time" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="racePos" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Race Position" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="rpm" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="RPM" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="speedX" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed X" unFocusColor="#4d4d4d00" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="speedY" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed Y" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="speedZ" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Speed Z" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="distToMiddle" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Distance To Middle" unFocusColor="#4d4d4d00" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="posZ" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Position Z" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="fps" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="FPS" unFocusColor="#4d4d4d00" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                              <JFXTextField fx:id="count" editable="false" focusColor="BLACK" focusTraversable="false" labelFloat="true" mouseTransparent="true" promptText="Count" stylesheets="@../styles/Styles.css" unFocusColor="TRANSPARENT" GridPane.valignment="BOTTOM">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </JFXTextField>
-                           </children>
-                        </GridPane>
-                     </children>
-                  </StackPane>
-               </content>
-            </Tab>
-            <Tab text="Chart">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart fx:id="chart" alternativeColumnFillVisible="true" animated="false" layoutX="50.0" layoutY="9.0" legendVisible="false" prefHeight="267.0" prefWidth="500.0" title="Distance From Start" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <xAxis>
-                            <NumberAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
             <Tab text="ChartTest">
                <content>
-                  <BorderPane prefHeight="200.0" prefWidth="600.0">
-                     <left>
-                        <ListSelectionView fx:id="sensorSelector" orientation="VERTICAL" prefHeight="372.0" prefWidth="202.0" BorderPane.alignment="CENTER" />
-                     </left>
-                     <center>
-                        <LineChart fx:id="plot" BorderPane.alignment="CENTER">
+                  <AnchorPane style="-fx-background-color: #575758;">
+                     <children>
+                        <LineChart fx:id="plot" alternativeColumnFillVisible="true" createSymbols="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <xAxis>
                             <NumberAxis side="BOTTOM" />
                           </xAxis>
@@ -202,8 +39,151 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </LineChart>
-                     </center>
-                  </BorderPane>
+                        <JFXNodesList alignment="CENTER_LEFT" rotate="180.0" spacing="4.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0">
+                           <children>
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" styleClass="nodeButton" stylesheets="@../styles/Styles.css" text="Button">
+                                 <graphic>
+                                    <MaterialDesignIconView glyphName="PLUS" size="15" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXToggleButton accessibleText="accel" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Acceleration">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="braking" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Braking">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="gear" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Gear">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="steer" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Steering">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="angle" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Angle">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="cuLapTime" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Current Lap Time">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="distFromStart" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Distance From Start">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="totalDistFromStart" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Total Distance From Start">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="distRaced" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Distance Raced">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="lastLapTime" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Last Lap Time">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="rpm" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="RPM">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="speedX" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Speed X">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="speedY" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Speed Y">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="distToMiddle" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Distance To Middle">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="fps" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="FPS">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                           </children>
+                        </JFXNodesList>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="FrontPane">
+               <content>
+                  <FlowPane fx:id="frontFlowPane" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="TimelineTest">
+               <content>
+                  <VBox fx:id="timelineList" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
                </content>
             </Tab>
          </tabs>
@@ -219,7 +199,7 @@
          <children>
             <AnchorPane>
                <children>
-                  <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="86.0" text="Reset" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="86.0" text="Close Connection" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane GridPane.columnIndex="1">

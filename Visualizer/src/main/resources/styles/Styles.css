@@ -5,3 +5,58 @@
 .mygridStyle Line {
   -fx-stroke: black;
 }
+
+.sensorButton{
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-text-fill: white;
+}
+
+.sensorButton:hover {
+    -fx-background-color: lightgreen;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-text-fill: black;
+}
+
+.nodeButton{
+    -fx-background-color: lightgreen;
+    -fx-background-radius: 100;
+}
+
+.nodeButton:hover{
+    -fx-background-color: #6aae6a;
+    -fx-background-radius: 100;
+}
+
+.chart-vertical-zero-line {
+    -fx-stroke: white;
+}
+.chart-horizontal-zero-line {
+    -fx-stroke: white;
+}
+.chart-plot-background {
+    -fx-background-color: #575758;
+    -fx-foreground-color: white;
+    -fx-stroke: white;
+} 
+.chart-vertical-grid-lines {
+    -fx-stroke: #898887;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #898887;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.axis {
+-fx-stroke: white;
+-fx-fill: white;
+    -fx-font-size: 1.4em;    
+    -fx-tick-label-fill: white;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 0;
+    -fx-minor-tick-length: 0;
+}

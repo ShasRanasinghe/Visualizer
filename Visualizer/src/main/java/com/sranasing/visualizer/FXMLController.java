@@ -3,111 +3,43 @@ package com.sranasing.visualizer;
 import TORCS_Sensors.Sensors_Message;
 import TORCS_Sensors.Sensors_Message.Sensors;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.Tile.SkinType;
+import eu.hansolo.tilesfx.TileBuilder;
+import eu.hansolo.tilesfx.colors.Bright;
+import eu.hansolo.tilesfx.colors.Dark;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.geometry.Orientation;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
-import org.controlsfx.control.ListSelectionView;
-import org.controlsfx.control.Notifications;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Stop;
+import org.controlsfx.control.SegmentedBar;
 import org.zeromq.ZMQ;
 
 public class FXMLController implements Initializable {
 
     @FXML
-    private GridPane gridPane;
-
-    @FXML
-    private JFXTextField accel;
-
-    @FXML
-    private JFXTextField breaking;
-
-    @FXML
-    private JFXTextField gear;
-
-    @FXML
-    private JFXTextField steer;
-
-    @FXML
-    private JFXTextField meta;
-
-    @FXML
-    private JFXTextField clutch;
-
-    @FXML
-    private JFXTextField focus;
-
-    @FXML
-    private JFXTextField angle;
-
-    @FXML
-    private JFXTextField cuLapTime;
-
-    @FXML
-    private JFXTextField damage;
-
-    @FXML
-    private JFXTextField distFromStart;
-
-    @FXML
-    private JFXTextField totalDistFromStart;
-
-    @FXML
-    private JFXTextField distRaced;
-
-    @FXML
-    private JFXTextField fuel;
-
-    @FXML
-    private JFXTextField lastLapTime;
-
-    @FXML
-    private JFXTextField racePos;
-
-    @FXML
-    private JFXTextField rpm;
-
-    @FXML
-    private JFXTextField speedX;
-
-    @FXML
-    private JFXTextField speedY;
-
-    @FXML
-    private JFXTextField speedZ;
-
-    @FXML
-    private JFXTextField distToMiddle;
-
-    @FXML
-    private JFXTextField posZ;
-
-    @FXML
-    private JFXTextField fps;
-
-    @FXML
-    private JFXTextField count;
-
-    @FXML
-    private LineChart<Number, Number> chart;
-
-    @FXML
-    private ListSelectionView<Series<Number, Number>> sensorSelector;
-
-    @FXML
     private LineChart<Number, Number> plot;
+
+    @FXML
+    private VBox timelineList;
+
+    @FXML
+    private FlowPane frontFlowPane;
 
     //Initialize the context of the device
     private ZMQ.Context context;
@@ -121,34 +53,44 @@ public class FXMLController implements Initializable {
     //task used to update the sensors
     private Task updateStatusTask;
 
-    //data series used in the line chart
-    private Series<Number, Number> series;
-
     //List containing all the available Sensors
     private ObservableList<Series<Number, Number>> sensorDataList;
 
-    //Define the series used for the sensors
-    private Series<Number, Number> accel_Data;
-    private Series<Number, Number> breaking_Data;
-    private Series<Number, Number> gear_Data;
-    private Series<Number, Number> steer_Data;
-    private Series<Number, Number> angle_Data;
-    private Series<Number, Number> cuLapTime_Data;
-    private Series<Number, Number> distFromStart_Data;
-    private Series<Number, Number> totalDistFromStart_Data;
-    private Series<Number, Number> distRaced_Data;
-    private Series<Number, Number> lastLapTime_Data;
-    private Series<Number, Number> rpm_Data;
-    private Series<Number, Number> speedX_Data;
-    private Series<Number, Number> speedY_Data;
-    private Series<Number, Number> distToMiddle_Data;
-    private Series<Number, Number> fps_Data;
+    private SensorData accel;
+    private SensorData braking;
+    private SensorData gear;
+    private SensorData steer;
+    private SensorData angle;
+    private SensorData cuLapTime;
+    private SensorData distFromStart;
+    private SensorData totalDistFromStart;
+    private SensorData distRaced;
+    private SensorData lastLapTime;
+    private SensorData rpm;
+    private SensorData speedX;
+    private SensorData speedY;
+    private SensorData distToMiddle;
+    private SensorData fps;
+
+    private HashMap<String, SensorData> sensorMap;
 
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
     private static final String SYNC_PORT = "tcp://localhost:5556";
     private static final String HANDSHAKE_INIT = "Init";
     private static final String HANDSHAKE_ACK = "SyncAck";
+
+    private Tile gaugeTile;
+    private Tile barGaugeTile;
+    private Tile timeTile;
+    private Tile gaugeSparkLineTile;
+
+    private static final double TILE_WIDTH = 150;
+    private static final double TILE_HEIGHT = 150;
+
+    private float previousVal = 0;
+
+    SegmentedBar bar1;
 
     /**
      * Initialize the controller
@@ -158,72 +100,128 @@ public class FXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        intitializeSeries();
+        initializeDataStuctures();
 
-        initializeListView();
+        testSegmentedBar();
 
-        //Test Chart
-        series = new Series<>();
-        chart.getData().add(series);
+        gaugeTile = TileBuilder.create()
+                .skinType(SkinType.GAUGE)
+                .prefSize(TILE_WIDTH, TILE_HEIGHT)
+                .minValue(0)
+                .maxValue(300)
+                .title("Gauge Tile")
+                .unit("FPS")
+                .threshold(75)
+                .build();
+        frontFlowPane.getChildren().add(gaugeTile);
+
+        barGaugeTile = TileBuilder.create()
+                .skinType(SkinType.BAR_GAUGE)
+                .prefSize(TILE_WIDTH, TILE_HEIGHT)
+                .minValue(0)
+                .maxValue(200)
+                .startFromZero(true)
+                .threshold(80)
+                .thresholdVisible(true)
+                .title("BarGauge Tile")
+                .unit("F")
+                .text("Whatever text")
+                .gradientStops(new Stop(0, Bright.BLUE),
+                        new Stop(0.1, Bright.BLUE_GREEN),
+                        new Stop(0.2, Bright.GREEN),
+                        new Stop(0.3, Bright.GREEN_YELLOW),
+                        new Stop(0.4, Bright.YELLOW),
+                        new Stop(0.5, Bright.YELLOW_ORANGE),
+                        new Stop(0.6, Bright.ORANGE),
+                        new Stop(0.7, Bright.ORANGE_RED),
+                        new Stop(0.8, Bright.RED),
+                        new Stop(1.0, Dark.RED))
+                .strokeWithGradient(true)
+                .animated(true)
+                .build();
+        frontFlowPane.getChildren().add(barGaugeTile);
+
+        timeTile = TileBuilder.create()
+                .skinType(SkinType.TIME)
+                .prefSize(TILE_WIDTH, TILE_HEIGHT)
+                .title("Time Tile")
+                .text("Whatever text")
+                .duration(LocalTime.of(1, 22, 50))
+                .description("Average reply time")
+                .textVisible(true)
+                .build();
+        frontFlowPane.getChildren().add(timeTile);
+        timeTile.setValue(123.0);
+
+        gaugeSparkLineTile = TileBuilder.create()
+                .skinType(SkinType.GAUGE_SPARK_LINE)
+                .prefSize(TILE_WIDTH, TILE_HEIGHT)
+                .title("GaugeSparkLine")
+                .animated(true)
+                .maxValue(200)
+                .textVisible(false)
+                .averagingPeriod(25)
+                .autoReferenceValue(true)
+                .barColor(Tile.YELLOW_ORANGE)
+                .barBackgroundColor(Color.rgb(255, 255, 255, 0.1))
+                .sections(new eu.hansolo.tilesfx.Section(0, 33, Tile.LIGHT_GREEN),
+                        new eu.hansolo.tilesfx.Section(33, 67, Tile.YELLOW),
+                        new eu.hansolo.tilesfx.Section(67, 100, Tile.LIGHT_RED))
+                .sectionsVisible(true)
+                .highlightSections(true)
+                .strokeWithGradient(true)
+                .gradientStops(new Stop(0.0, Tile.LIGHT_GREEN),
+                        new Stop(0.33, Tile.LIGHT_GREEN),
+                        new Stop(0.33, Tile.YELLOW),
+                        new Stop(0.67, Tile.YELLOW),
+                        new Stop(0.67, Tile.LIGHT_RED),
+                        new Stop(1.0, Tile.LIGHT_RED))
+                .build();
+        frontFlowPane.getChildren().add(gaugeSparkLineTile);
     }
 
-    /**
-     * Initialize the series that would hold the sensor data to be plotted
-     */
-    private void intitializeSeries() {
-        accel_Data = new Series<>();
-        accel_Data.setName("Acceleration");
-        breaking_Data = new Series<>();
-        breaking_Data.setName("Breaking");
-        gear_Data = new Series<>();
-        gear_Data.setName("Gear");
-        steer_Data = new Series<>();
-        steer_Data.setName("Steering");
-        angle_Data = new Series<>();
-        angle_Data.setName("Angle");
-        cuLapTime_Data = new Series<>();
-        cuLapTime_Data.setName("Current Lap Time");
-        distFromStart_Data = new Series<>();
-        distFromStart_Data.setName("Distance From Start");
-        totalDistFromStart_Data = new Series<>();
-        totalDistFromStart_Data.setName("Total Distance From Start");
-        distRaced_Data = new Series<>();
-        distRaced_Data.setName("Distance Raced");
-        lastLapTime_Data = new Series<>();
-        lastLapTime_Data.setName("Last Lap Time");
-        rpm_Data = new Series<>();
-        rpm_Data.setName("RPM");
-        speedX_Data = new Series<>();
-        speedX_Data.setName("SpeedX");
-        speedY_Data = new Series<>();
-        speedY_Data.setName("SpeedY");
-        distToMiddle_Data = new Series<>();
-        distToMiddle_Data.setName("Distance To Middle");
-        fps_Data = new Series<>();
-        fps_Data.setName("FPS");
+    private void testSegmentedBar() {
+        bar1 = new SegmentedBar();
+        bar1.setOrientation(Orientation.HORIZONTAL);
+        bar1.setMinHeight(15);
+        bar1.setPrefHeight(15);
+        bar1.setMaxHeight(15);
+        timelineList.getChildren().add(bar1);
     }
 
-    private void initializeListView() {
-        sensorDataList = FXCollections.observableArrayList();
-        sensorDataList.addAll(
-                accel_Data,
-                breaking_Data,
-                gear_Data,
-                steer_Data,
-                angle_Data,
-                cuLapTime_Data,
-                distFromStart_Data,
-                totalDistFromStart_Data,
-                distRaced_Data,
-                lastLapTime_Data,
-                rpm_Data,
-                speedX_Data,
-                speedY_Data,
-                distToMiddle_Data,
-                fps_Data);
+    private void initializeDataStuctures() {
+        sensorMap = new HashMap<>();
 
-        sensorSelector.setTargetItems(plot.getData());
-        sensorSelector.setSourceItems(sensorDataList);
+        accel = new SensorData("Acceleration");
+        sensorMap.put("accel", accel);
+        braking = new SensorData("Braking");
+        sensorMap.put("braking", braking);
+        gear = new SensorData("Gear");
+        sensorMap.put("gear", gear);
+        steer = new SensorData("Steering");
+        sensorMap.put("steer", steer);
+        angle = new SensorData("Angle");
+        sensorMap.put("angle", angle);
+        cuLapTime = new SensorData("Current Lap Time");
+        sensorMap.put("cuLapTime", cuLapTime);
+        distFromStart = new SensorData("Distance From The Start");
+        sensorMap.put("distFromStart", distFromStart);
+        totalDistFromStart = new SensorData("Total Distance From The Start");
+        sensorMap.put("totalDistFromStart", totalDistFromStart);
+        distRaced = new SensorData("Distance Raced");
+        sensorMap.put("distRaced", distRaced);
+        lastLapTime = new SensorData("Last Lap Time");
+        sensorMap.put("lastLapTime", lastLapTime);
+        rpm = new SensorData("RPM");
+        sensorMap.put("rpm", rpm);
+        speedX = new SensorData("Speed X");
+        sensorMap.put("speedX", speedX);
+        speedY = new SensorData("Speed Y");
+        sensorMap.put("speedY", speedY);
+        distToMiddle = new SensorData("Distance To The Middle");
+        sensorMap.put("distToMiddle", distToMiddle);
+        fps = new SensorData("FPS");
+        sensorMap.put("fps", fps);
     }
 
     /**
@@ -273,60 +271,39 @@ public class FXMLController implements Initializable {
      * @param message message object updated with the last message
      */
     private void updateSensors(Sensors message) {
-        accel_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getAccel()));
-        breaking_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getBreaking()));
-        gear_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getGear()));
-        steer_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSteer()));
-        angle_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getAngle()));
-        cuLapTime_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getCuLapTime()));
-        distFromStart_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistFromStart()));
-        totalDistFromStart_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getTotalDistFromStart()));
-        distRaced_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistRaced()));
-        lastLapTime_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getLastLapTime()));
-        rpm_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getRpm()));
-        speedX_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSpeedX()));
-        speedY_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSpeedY()));
-        distToMiddle_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistToMiddle()));
-        fps_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getFps()));
-
-        accel.setText(Float.toString(message.getAccel()));
-        breaking.setText(Float.toString(message.getBreaking()));
-        gear.setText(Integer.toString(message.getGear()));
-        steer.setText(Float.toString(message.getSteer()));
-        meta.setText(Integer.toString(message.getMeta()));
-        clutch.setText(Float.toString(message.getClutch()));
-        focus.setText(Integer.toString(message.getFocus()));
-        angle.setText(Float.toString(message.getAngle()));
-        cuLapTime.setText(Float.toString(message.getCuLapTime()));
-        damage.setText(Integer.toString(message.getDamage()));
-        distFromStart.setText(Float.toString(message.getDistFromStart()));
-        totalDistFromStart.setText(Float.toString(message.getTotalDistFromStart()));
-        distRaced.setText(Float.toString(message.getDistRaced()));
-        fuel.setText(Float.toString(message.getFuel()));
-        lastLapTime.setText(Float.toString(message.getLastLapTime()));
-        racePos.setText(Integer.toString(message.getRacePos()));
-        rpm.setText(Float.toString(message.getRpm()));
-        speedX.setText(Float.toString(message.getSpeedX()));
-        speedY.setText(Float.toString(message.getSpeedY()));
-        speedZ.setText(Float.toString(message.getSpeedZ()));
-        distToMiddle.setText(Float.toString(message.getDistToMiddle()));
-        posZ.setText(Float.toString(message.getPosZ()));
-        fps.setText(Float.toString(message.getFps()));
-        count.setText(Integer.toString(message.getCount()));
+        if (message.getTotalDistFromStart() > 0) { //race has started
+            if (message.getDistFromStart() < previousVal) { //new lap started
+                System.out.println("New Lap Started");
+                sensorMap.forEach((t, u) -> {
+                    u.newLap();
+                });
+            }
+            addData(message);
+        }
+        previousVal = message.getDistFromStart();
     }
 
-    /**
-     * Create a notification with the given text
-     *
-     * @param text Text to be displayed in the notification
-     */
-    private void notification(String text) {
-        Notifications.create()
-                .owner(gridPane)
-                .text(text)
-                .hideAfter(Duration.seconds(3))
-                .position(Pos.BOTTOM_RIGHT)
-                .showInformation();
+    private void addData(Sensors message) {
+        accel.addData(message.getAccel());
+        braking.addData(message.getBreaking());
+        gear.addData((float) message.getGear());
+        steer.addData(message.getSteer());
+        angle.addData(message.getAngle());
+        cuLapTime.addData(message.getCuLapTime());
+        distFromStart.addData(message.getDistFromStart());
+        totalDistFromStart.addData(message.getTotalDistFromStart());
+        distRaced.addData(message.getDistRaced());
+        lastLapTime.addData(message.getLastLapTime());
+        rpm.addData(message.getRpm());
+        speedX.addData(message.getSpeedX());
+        speedY.addData(message.getSpeedY());
+        distToMiddle.addData(message.getDistToMiddle());
+        fps.addData(message.getFps());
+
+        gaugeTile.setValue(message.getFps());//fps
+        barGaugeTile.setValue(message.getSpeedX());//rps
+        gaugeSparkLineTile.setValue(message.getSpeedX());//speedX
+        //bar1.getSegments().add(new SegmentedBar.Segment(1, String.valueOf(message.getSteer())));
     }
 
     /**
@@ -364,8 +341,6 @@ public class FXMLController implements Initializable {
         Thread th = new Thread(updateStatusTask);
         th.setDaemon(true);
         th.start();
-
-        //notification("Successfully Connected");
     }
 
     /**
@@ -379,8 +354,6 @@ public class FXMLController implements Initializable {
         subscriber.close();
         sync_socket.close();
         context.term();
-
-        notification("Connection Reset\nReconnect to continue");
     }
 
     /**
@@ -388,8 +361,17 @@ public class FXMLController implements Initializable {
      */
     @FXML
     private void clear() {
-        gridPane.getChildren().stream().filter((node) -> (node instanceof JFXTextField)).forEachOrdered((node) -> {
-            ((JFXTextField) node).clear();
-        });
+        initializeDataStuctures();
+        plot.getData().clear();
+    }
+
+    @FXML
+    private void addLine(ActionEvent event) {
+        JFXToggleButton toggleButton = (JFXToggleButton) event.getSource();
+        if (toggleButton.isSelected()) {
+            plot.getData().add(sensorMap.get(toggleButton.getAccessibleText()).goLive());
+        } else {
+            plot.getData().remove(sensorMap.get(toggleButton.getAccessibleText()).goOffline());
+        }
     }
 }
