@@ -59,7 +59,8 @@ public class FXMLController implements Initializable {
     private SensorData accel;
     private SensorData braking;
     private SensorData gear;
-    private SensorData steer;
+    private SensorData steerPredicted;
+    private SensorData steerExpected;
     private SensorData angle;
     private SensorData cuLapTime;
     private SensorData distFromStart;
@@ -198,8 +199,10 @@ public class FXMLController implements Initializable {
         sensorMap.put("braking", braking);
         gear = new SensorData("Gear");
         sensorMap.put("gear", gear);
-        steer = new SensorData("Steering");
-        sensorMap.put("steer", steer);
+        steerPredicted = new SensorData("Steering Predicted");
+        sensorMap.put("steerPredicted", steerPredicted);
+        steerExpected = new SensorData("Steering Expected");
+        sensorMap.put("steerExpected", steerExpected);
         angle = new SensorData("Angle");
         sensorMap.put("angle", angle);
         cuLapTime = new SensorData("Current Lap Time");
@@ -285,9 +288,10 @@ public class FXMLController implements Initializable {
 
     private void addData(Sensors message) {
         accel.addData(message.getAccel());
-        braking.addData(message.getBreaking());
+        braking.addData(message.getBraking());
         gear.addData((float) message.getGear());
-        steer.addData(message.getSteer());
+        steerPredicted.addData(message.getSteerPredicted());
+        steerExpected.addData(message.getSteerExpected());
         angle.addData(message.getAngle());
         cuLapTime.addData(message.getCuLapTime());
         distFromStart.addData(message.getDistFromStart());

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="502.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
+<VBox prefHeight="571.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
    <children>
       <AnchorPane prefHeight="10.0" prefWidth="600.0" VBox.vgrow="NEVER">
          <children>
@@ -70,7 +70,15 @@
                                     <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
                                  </padding>
                               </JFXToggleButton>
-                              <JFXToggleButton accessibleText="steer" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Steering">
+                              <JFXToggleButton accessibleText="steerPredicted" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Predicted Steering">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <padding>
+                                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                                 </padding>
+                              </JFXToggleButton>
+                              <JFXToggleButton accessibleText="steerExpected" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/Styles.css" text="Expected Steering">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
