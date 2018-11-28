@@ -23,6 +23,35 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target name="Generating Proto files">
+                                <property name="src.dir" value="${project.basedir}/src/main/resources/protobuf" />
+                                <property name="dest.dir" value="${project.build.sourceDirectory}" />
+                                <property name="protoc.dir" value="${project.basedir}/protoc/bin" />
+                                <property name="file.pos" value="${src.dir}/proto_schema.proto" />
+
+                                <delete dir="${project.build.sourceDirectory}/TORCS_Sensors"/>
+                                <exec dir="${protoc.dir}"
+                                    executable="cmd">
+                                    <arg value="/c"/>
+                                    <arg value="protoc -I=&quot;${src.dir}&quot; --java_out=&quot;${dest.dir}&quot; &quot;${file.pos}&quot;" />
+                                </exec>
+                                <echo>something**********************************</echo>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.6</version>
                 <executions>
