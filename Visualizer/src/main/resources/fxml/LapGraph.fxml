@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" style="-fx-background-color: #575758;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.LapGraphController">
+    <children>
+       <LineChart fx:id="plot" alternativeColumnFillVisible="true" createSymbols="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <xAxis>
+           <NumberAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+           <NumberAxis side="LEFT" />
+         </yAxis>
+       </LineChart>
+       <JFXNodesList alignment="CENTER_LEFT" rotate="180.0" spacing="4.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0">
+          <children>
+             <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" styleClass="nodeButton" stylesheets="@../styles/lapgraph.css" text="Button">
+                <graphic>
+                   <MaterialDesignIconView glyphName="PLUS" size="15" />
+                </graphic>
+             </JFXButton>
+             <JFXToggleButton accessibleText="accel" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Acceleration">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="braking" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Braking">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="gear" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Gear">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="steerPredicted" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Predicted Steering">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="steerExpected" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Expected Steering">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="angle" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Angle">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="distFromStart" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Distance From Start">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="totalDistFromStart" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Total Distance From Start">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="distRaced" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Distance Raced">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="rpm" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="RPM">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="speedX" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Speed X">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="speedY" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Speed Y">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="distToMiddle" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Distance To Middle">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+             <JFXToggleButton accessibleText="fps" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="FPS">
+                <cursor>
+                   <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
+                </padding>
+             </JFXToggleButton>
+          </children>
+       </JFXNodesList>
+    </children>
+</AnchorPane>
