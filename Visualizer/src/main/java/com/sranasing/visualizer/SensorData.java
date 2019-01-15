@@ -22,7 +22,7 @@ public class SensorData implements Serializable {
     //data series used in the line chart
     private Series<Number, Number> sensorDataList;
 
-    private ArrayList<float[]> data;
+    private float[] data;
 
     private boolean isLive = false;
 
@@ -34,29 +34,7 @@ public class SensorData implements Serializable {
         this.name = name;
         sensorDataList = new Series<>();
         sensorDataList.setName(name);
-        data = new ArrayList<>();
         intermediate_Data = new ArrayList<>();
-    }
-
-    public void newLap() {
-        data.add(ArrayUtils.toPrimitive(intermediate_Data.toArray(new Float[intermediate_Data.size()])));
-        intermediate_Data = new ArrayList<>();
-        sensorDataList.getData().clear();
-        lapMessageCount = 0;
-    }
-
-    public Series<Number, Number> goLive() {
-        isLive = true;
-        for (int i = 0; i < intermediate_Data.size(); i++) {
-            sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
-        }
-        return sensorDataList;
-    }
-
-    public Series<Number, Number> goOffline() {
-        isLive = false;
-        sensorDataList.getData().clear();
-        return sensorDataList;
     }
 
     public void addData(Float data_point) {
@@ -67,8 +45,23 @@ public class SensorData implements Serializable {
         lapMessageCount++;
     }
 
-    public ArrayList<float[]> getLapData() {
-        return data;
+    public Series<Number, Number> addToGraph() {
+        isLive = true;
+        for (int i = 0; i < intermediate_Data.size(); i++) {
+            sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
+        }
+        return sensorDataList;
+    }
+
+    public Series<Number, Number> removeFromGraph() {
+        isLive = false;
+        sensorDataList.getData().clear();
+        return sensorDataList;
+    }
+
+    public void finishLap() {
+        data = ArrayUtils.toPrimitive(intermediate_Data.toArray(new Float[intermediate_Data.size()]));
+        intermediate_Data.clear();
     }
 
     @Override

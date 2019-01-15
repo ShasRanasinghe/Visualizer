@@ -44,7 +44,6 @@
                                     <arg value="/c"/>
                                     <arg value="protoc -I=&quot;${src.dir}&quot; --java_out=&quot;${dest.dir}&quot; &quot;${file.pos}&quot;" />
                                 </exec>
-                                <echo>something**********************************</echo>
                             </target>
                         </configuration>
                     </execution>

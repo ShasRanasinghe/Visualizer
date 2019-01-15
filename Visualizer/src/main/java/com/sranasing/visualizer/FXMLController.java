@@ -3,26 +3,23 @@ package com.sranasing.visualizer;
 import TORCS_Sensors.Sensors_Message;
 import TORCS_Sensors.Sensors_Message.Sensors;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.jfoenix.controls.JFXToggleButton;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.Tile.SkinType;
 import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.colors.Bright;
 import eu.hansolo.tilesfx.colors.Dark;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart.Series;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,13 +30,13 @@ import org.zeromq.ZMQ;
 public class FXMLController implements Initializable {
 
     @FXML
-    private LineChart<Number, Number> plot;
-
-    @FXML
     private VBox timelineList;
 
     @FXML
     private FlowPane frontFlowPane;
+
+    @FXML
+    private VBox graphList;
 
     //Initialize the context of the device
     private ZMQ.Context context;
@@ -53,27 +50,7 @@ public class FXMLController implements Initializable {
     //task used to update the sensors
     private Task updateStatusTask;
 
-    //List containing all the available Sensors
-    private ObservableList<Series<Number, Number>> sensorDataList;
-
-    private SensorData accel;
-    private SensorData braking;
-    private SensorData gear;
-    private SensorData steerPredicted;
-    private SensorData steerExpected;
-    private SensorData angle;
-    private SensorData cuLapTime;
-    private SensorData distFromStart;
-    private SensorData totalDistFromStart;
-    private SensorData distRaced;
-    private SensorData lastLapTime;
-    private SensorData rpm;
-    private SensorData speedX;
-    private SensorData speedY;
-    private SensorData distToMiddle;
-    private SensorData fps;
-
-    private HashMap<String, SensorData> sensorMap;
+    private LapGraphController graphController;
 
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
@@ -101,7 +78,7 @@ public class FXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initializeDataStuctures();
+        createLapGraph();
 
         testSegmentedBar();
 
@@ -190,41 +167,15 @@ public class FXMLController implements Initializable {
         timelineList.getChildren().add(bar1);
     }
 
-    private void initializeDataStuctures() {
-        sensorMap = new HashMap<>();
-
-        accel = new SensorData("Acceleration");
-        sensorMap.put("accel", accel);
-        braking = new SensorData("Braking");
-        sensorMap.put("braking", braking);
-        gear = new SensorData("Gear");
-        sensorMap.put("gear", gear);
-        steerPredicted = new SensorData("Steering Predicted");
-        sensorMap.put("steerPredicted", steerPredicted);
-        steerExpected = new SensorData("Steering Expected");
-        sensorMap.put("steerExpected", steerExpected);
-        angle = new SensorData("Angle");
-        sensorMap.put("angle", angle);
-        cuLapTime = new SensorData("Current Lap Time");
-        sensorMap.put("cuLapTime", cuLapTime);
-        distFromStart = new SensorData("Distance From The Start");
-        sensorMap.put("distFromStart", distFromStart);
-        totalDistFromStart = new SensorData("Total Distance From The Start");
-        sensorMap.put("totalDistFromStart", totalDistFromStart);
-        distRaced = new SensorData("Distance Raced");
-        sensorMap.put("distRaced", distRaced);
-        lastLapTime = new SensorData("Last Lap Time");
-        sensorMap.put("lastLapTime", lastLapTime);
-        rpm = new SensorData("RPM");
-        sensorMap.put("rpm", rpm);
-        speedX = new SensorData("Speed X");
-        sensorMap.put("speedX", speedX);
-        speedY = new SensorData("Speed Y");
-        sensorMap.put("speedY", speedY);
-        distToMiddle = new SensorData("Distance To The Middle");
-        sensorMap.put("distToMiddle", distToMiddle);
-        fps = new SensorData("FPS");
-        sensorMap.put("fps", fps);
+    private void createLapGraph() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LapGraph.fxml"));
+            AnchorPane graph = loader.load();
+            graphController = loader.getController();
+            graphList.getChildren().add(graph);
+        } catch (IOException ex) {
+            System.out.println("There was an issue loading the graph FXML file");
+        }
     }
 
     /**
@@ -275,34 +226,17 @@ public class FXMLController implements Initializable {
      */
     private void updateSensors(Sensors message) {
         if (message.getTotalDistFromStart() > 0) { //race has started
-            if (message.getDistFromStart() < previousVal) { //new lap started
+            if (message.getCuLapTime() < previousVal) { //new lap started
                 System.out.println("New Lap Started");
-                sensorMap.forEach((t, u) -> {
-                    u.newLap();
-                });
+                createLapGraph();
             }
             addData(message);
         }
-        previousVal = message.getDistFromStart();
+        previousVal = message.getCuLapTime();
     }
 
     private void addData(Sensors message) {
-        accel.addData(message.getAccel());
-        braking.addData(message.getBraking());
-        gear.addData((float) message.getGear());
-        steerPredicted.addData(message.getSteerPredicted());
-        steerExpected.addData(message.getSteerExpected());
-        angle.addData(message.getAngle());
-        cuLapTime.addData(message.getCuLapTime());
-        distFromStart.addData(message.getDistFromStart());
-        totalDistFromStart.addData(message.getTotalDistFromStart());
-        distRaced.addData(message.getDistRaced());
-        lastLapTime.addData(message.getLastLapTime());
-        rpm.addData(message.getRpm());
-        speedX.addData(message.getSpeedX());
-        speedY.addData(message.getSpeedY());
-        distToMiddle.addData(message.getDistToMiddle());
-        fps.addData(message.getFps());
+        graphController.addData(message);
 
         gaugeTile.setValue(message.getFps());//fps
         barGaugeTile.setValue(message.getSpeedX());//rps
@@ -365,17 +299,6 @@ public class FXMLController implements Initializable {
      */
     @FXML
     private void clear() {
-        initializeDataStuctures();
-        plot.getData().clear();
-    }
-
-    @FXML
-    private void addLine(ActionEvent event) {
-        JFXToggleButton toggleButton = (JFXToggleButton) event.getSource();
-        if (toggleButton.isSelected()) {
-            plot.getData().add(sensorMap.get(toggleButton.getAccessibleText()).goLive());
-        } else {
-            plot.getData().remove(sensorMap.get(toggleButton.getAccessibleText()).goOffline());
-        }
+        graphController.clear();
     }
 }
