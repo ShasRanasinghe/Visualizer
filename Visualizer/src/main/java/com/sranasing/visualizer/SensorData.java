@@ -39,11 +39,11 @@ public class SensorData implements Serializable {
         intermediate_Data = new ArrayList<>();
     }
 
-    public void addData(Float data_point) {
+    public void addData(Float x, Float y) {
         if (isLive) {
-            sensorDataList.getData().add(new Data<>(lapMessageCount, data_point));
+            sensorDataList.getData().add(new Data<>(lapMessageCount, y));
         }
-        intermediate_Data.add(data_point);
+        intermediate_Data.add(y);
         lapMessageCount++;
     }
 

@@ -128,7 +128,7 @@ public final class Utils {
     }
 
     public static void saveToCSV(List<float[][]> data, String fileName) {
-        for (int lap = 0; lap < data.size(); lap++) {
+        for (int lap = data.size() - 1; lap >= 0; lap--) {
             try (FileWriter writer = new FileWriter(fileName + "-Lap" + (lap + 1) + ".csv")) {
                 for (int i = 0; i < data.get(lap)[0].length; i++) {
                     writer.append(data.get(lap)[0][i] + COMMA_DELIMITER + data.get(lap)[1][i]);

@@ -33,6 +33,9 @@ public class LapGraphController implements Initializable {
     private SensorData distToMiddle;
     private SensorData absError;
 
+    private float errorSum = 0;
+    private long count = 0;
+
     /**
      * Initializes the controller class.
      */
@@ -61,11 +64,15 @@ public class LapGraphController implements Initializable {
     }
 
     public void addData(Sensors_Message.Sensors message) {
-        angle.addData(message.getAngle());
-        steerPredicted.addData(message.getSteerPredicted());
-        steerExpected.addData(message.getSteerExpected());
-        distToMiddle.addData(message.getDistToMiddle());
-        absError.addData(Math.abs(message.getSteerPredicted() - message.getSteerExpected()));
+        Float x = message.getDistFromStart();
+        angle.addData(x, message.getAngle());
+        steerPredicted.addData(x, message.getSteerPredicted());
+        steerExpected.addData(x, message.getSteerExpected());
+        distToMiddle.addData(x, message.getDistToMiddle());
+        float error = Math.abs(message.getSteerPredicted() - message.getSteerExpected());
+        errorSum += error;
+        absError.addData(x, error);
+        count++;
     }
 
     public void clear() {
@@ -76,6 +83,11 @@ public class LapGraphController implements Initializable {
         for (SensorData value : sensorMap.values()) {
             value.finishLap();
         }
+        System.out.println("***********************************");
+        System.out.println("Average Error: " + errorSum / count);
+        System.out.println("***********************************");
+
+        count = 0;
     }
 
     public float[][] getDataList() {

@@ -53,6 +53,8 @@ public class FXMLController implements Initializable {
 
     private LapGraphController graphController;
 
+    private List<float[][]> lapData;
+
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
     private static final String SYNC_PORT = "tcp://localhost:5556";
@@ -78,6 +80,7 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         createLapGraph();
+        lapData = new ArrayList<>();
     }
 
     private void createLapGraph() {
@@ -141,6 +144,8 @@ public class FXMLController implements Initializable {
         if (message.getTotalDistFromStart() > 0) { //race has started
             if (message.getCuLapTime() < previousVal) { //new lap started
                 System.out.println("New Lap Started");
+                graphController.finishLap();
+                lapData.add(graphController.getDataList());
                 createLapGraph();
             }
             addData(message);
@@ -248,6 +253,7 @@ public class FXMLController implements Initializable {
         }
 
         graphController.finishLap();
+        lapData.add(graphController.getDataList());
     }
 
     @FXML
@@ -262,9 +268,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void saveData() {
-        List<float[][]> data = new ArrayList<>();
-        data.add(graphController.getDataList());
-        Utils.saveToCSV(data, "dataFile");
+        Utils.saveToCSV(lapData, "dataFile");
     }
 
     @FXML
@@ -297,6 +301,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void run() {
+        runRace();
         if (torcsFolder == null) {
             System.out.println("No Directory Selected");
         } else {
