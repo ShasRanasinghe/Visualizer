@@ -49,15 +49,18 @@ public class SensorData implements Serializable {
 
     public Series<Number, Number> addToGraph() {
         isLive = true;
-        if (lapFinished) {
-            for (int i = 0; i < intermediate_Data.size(); i++) {
-                sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
-            }
-        } else {
-            for (int i = 0; i < lapMessageCount; i++) {
-                sensorDataList.getData().add(new Data<>(i, data[i]));
-            }
+        for (int i = 0; i < intermediate_Data.size(); i++) {
+            sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
         }
+//        if (lapFinished) {
+//            for (int i = 0; i < lapMessageCount; i++) {
+//                sensorDataList.getData().add(new Data<>(i, data[i]));
+//            }
+//        } else {
+//            for (int i = 0; i < intermediate_Data.size(); i++) {
+//                sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
+//            }
+//        }
         return sensorDataList;
     }
 
