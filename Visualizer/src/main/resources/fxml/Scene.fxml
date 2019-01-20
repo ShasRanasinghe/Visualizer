@@ -1,71 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="479.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
+<VBox fx:id="root" prefHeight="432.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.FXMLController">
    <children>
-      <AnchorPane prefHeight="10.0" prefWidth="600.0" VBox.vgrow="NEVER">
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#selectFolder" text="Select Folder" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveData" text="Save Data" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadData" text="Load Data" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane prefHeight="26.0" prefWidth="725.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#connect" prefHeight="10.0" prefWidth="600.0" text="Connect" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <ButtonBar buttonMinWidth="110.0" prefHeight="30.0" prefWidth="265.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+              <buttons>
+                  <Button mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="62.0" text="Connect" />
+                  <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="109.0" text="Disconnect" />
+                  <Button mnemonicParsing="false" onAction="#clear" prefHeight="25.0" prefWidth="45.0" text="Clear" />
+                  <JFXComboBox fx:id="trackList" />
+                  <JFXComboBox fx:id="modelList" />
+                  <Button mnemonicParsing="false" onAction="#run" text="Run" />
+              </buttons>
+               <padding>
+                  <Insets left="-10.0" />
+               </padding>
+            </ButtonBar>
          </children>
       </AnchorPane>
-      <TabPane prefHeight="374.0" prefWidth="725.0" VBox.vgrow="ALWAYS">
-         <tabs>
-            <Tab text="ChartTest">
-               <content>
-                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true">
-                     <content>
-                        <VBox fx:id="graphList" alignment="CENTER" spacing="10.0" />
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-            <Tab text="FrontPane">
-               <content>
-                  <FlowPane fx:id="frontFlowPane" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab text="TimelineTest">
-               <content>
-                  <VBox fx:id="timelineList" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-               </content>
-            </Tab>
-         </tabs>
-      </TabPane>
-      <GridPane VBox.vgrow="NEVER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <AnchorPane>
-               <children>
-                  <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="86.0" text="Close Connection" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane GridPane.columnIndex="1">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#clear" text="Clear" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-               </children>
-            </AnchorPane>
-         </children>
-      </GridPane>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox fx:id="graphList" alignment="CENTER" spacing="10.0" />
+         </content>
+      </ScrollPane>
    </children>
 </VBox>

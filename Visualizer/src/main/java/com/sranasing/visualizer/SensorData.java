@@ -30,6 +30,8 @@ public class SensorData implements Serializable {
 
     private String name;
 
+    private boolean lapFinished = false;
+
     public SensorData(String name) {
         this.name = name;
         sensorDataList = new Series<>();
@@ -47,8 +49,14 @@ public class SensorData implements Serializable {
 
     public Series<Number, Number> addToGraph() {
         isLive = true;
-        for (int i = 0; i < intermediate_Data.size(); i++) {
-            sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
+        if (lapFinished) {
+            for (int i = 0; i < intermediate_Data.size(); i++) {
+                sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
+            }
+        } else {
+            for (int i = 0; i < lapMessageCount; i++) {
+                sensorDataList.getData().add(new Data<>(i, data[i]));
+            }
         }
         return sensorDataList;
     }
@@ -61,7 +69,16 @@ public class SensorData implements Serializable {
 
     public void finishLap() {
         data = ArrayUtils.toPrimitive(intermediate_Data.toArray(new Float[intermediate_Data.size()]));
-        intermediate_Data.clear();
+        intermediate_Data = new ArrayList<>();
+        lapFinished = true;
+    }
+
+    public float[] getData() {
+        return data;
+    }
+
+    public void setData(float[] data) {
+        this.data = data;
     }
 
     @Override

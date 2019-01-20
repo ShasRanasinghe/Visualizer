@@ -27,22 +27,11 @@ public class LapGraphController implements Initializable {
 
     private HashMap<String, SensorData> sensorMap;
 
-    private SensorData accel;
-    private SensorData braking;
-    private SensorData gear;
     private SensorData steerPredicted;
     private SensorData steerExpected;
     private SensorData angle;
-    private SensorData cuLapTime;
-    private SensorData distFromStart;
-    private SensorData totalDistFromStart;
-    private SensorData distRaced;
-    private SensorData lastLapTime;
-    private SensorData rpm;
-    private SensorData speedX;
-    private SensorData speedY;
     private SensorData distToMiddle;
-    private SensorData fps;
+    private SensorData absError;
 
     /**
      * Initializes the controller class.
@@ -55,69 +44,57 @@ public class LapGraphController implements Initializable {
     private void initializeDataStuctures() {
         sensorMap = new HashMap<>();
 
-        accel = new SensorData("Acceleration");
-        sensorMap.put("accel", accel);
-        braking = new SensorData("Braking");
-        sensorMap.put("braking", braking);
-        gear = new SensorData("Gear");
-        sensorMap.put("gear", gear);
-        steerPredicted = new SensorData("Steering Predicted");
-        sensorMap.put("steerPredicted", steerPredicted);
-        steerExpected = new SensorData("Steering Expected");
-        sensorMap.put("steerExpected", steerExpected);
         angle = new SensorData("Angle");
         sensorMap.put("angle", angle);
-        cuLapTime = new SensorData("Current Lap Time");
-        sensorMap.put("cuLapTime", cuLapTime);
-        distFromStart = new SensorData("Distance From The Start");
-        sensorMap.put("distFromStart", distFromStart);
-        totalDistFromStart = new SensorData("Total Distance From The Start");
-        sensorMap.put("totalDistFromStart", totalDistFromStart);
-        distRaced = new SensorData("Distance Raced");
-        sensorMap.put("distRaced", distRaced);
-        lastLapTime = new SensorData("Last Lap Time");
-        sensorMap.put("lastLapTime", lastLapTime);
-        rpm = new SensorData("RPM");
-        sensorMap.put("rpm", rpm);
-        speedX = new SensorData("Speed X");
-        sensorMap.put("speedX", speedX);
-        speedY = new SensorData("Speed Y");
-        sensorMap.put("speedY", speedY);
+
         distToMiddle = new SensorData("Distance To The Middle");
         sensorMap.put("distToMiddle", distToMiddle);
-        fps = new SensorData("FPS");
-        sensorMap.put("fps", fps);
+
+        steerPredicted = new SensorData("Steering Predicted");
+        sensorMap.put("steerPredicted", steerPredicted);
+
+        steerExpected = new SensorData("Steering Expected");
+        sensorMap.put("steerExpected", steerExpected);
+
+        absError = new SensorData("Absolute Error");
+        sensorMap.put("absError", absError);
     }
 
     public void addData(Sensors_Message.Sensors message) {
-        accel.addData(message.getAccel());
-        braking.addData(message.getBraking());
-        gear.addData((float) message.getGear());
+        angle.addData(message.getAngle());
         steerPredicted.addData(message.getSteerPredicted());
         steerExpected.addData(message.getSteerExpected());
-        angle.addData(message.getAngle());
-        distFromStart.addData(message.getDistFromStart());
-        totalDistFromStart.addData(message.getTotalDistFromStart());
-        distRaced.addData(message.getDistRaced());
-        rpm.addData(message.getRpm());
-        speedX.addData(message.getSpeedX());
-        speedY.addData(message.getSpeedY());
         distToMiddle.addData(message.getDistToMiddle());
-        fps.addData(message.getFps());
+        absError.addData(Math.abs(message.getSteerPredicted() - message.getSteerExpected()));
     }
 
     public void clear() {
         plot.getData().clear();
     }
 
+    public void finishLap() {
+        for (SensorData value : sensorMap.values()) {
+            value.finishLap();
+        }
+    }
+
+    public float[][] getDataList() {
+        return new float[][]{
+            steerPredicted.getData(),
+            steerExpected.getData()
+        };
+    }
+
     @FXML
     private void addLine(ActionEvent event) {
         JFXToggleButton toggleButton = (JFXToggleButton) event.getSource();
+        toggleButton.setDisable(true);
         if (toggleButton.isSelected()) {
             plot.getData().add(sensorMap.get(toggleButton.getAccessibleText()).addToGraph());
         } else {
             plot.getData().remove(sensorMap.get(toggleButton.getAccessibleText()).removeFromGraph());
         }
+        toggleButton.setDisable(false);
     }
 
 }

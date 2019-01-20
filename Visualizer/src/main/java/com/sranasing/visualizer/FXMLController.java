@@ -3,37 +3,38 @@ package com.sranasing.visualizer;
 import TORCS_Sensors.Sensors_Message;
 import TORCS_Sensors.Sensors_Message.Sensors;
 import com.google.protobuf.InvalidProtocolBufferException;
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.Tile.SkinType;
-import eu.hansolo.tilesfx.TileBuilder;
-import eu.hansolo.tilesfx.colors.Bright;
-import eu.hansolo.tilesfx.colors.Dark;
+import com.jfoenix.controls.JFXComboBox;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Stop;
-import org.controlsfx.control.SegmentedBar;
+import javafx.stage.DirectoryChooser;
 import org.zeromq.ZMQ;
 
 public class FXMLController implements Initializable {
 
     @FXML
-    private VBox timelineList;
+    private VBox root;
 
     @FXML
-    private FlowPane frontFlowPane;
+    private JFXComboBox<String> trackList;
+
+    @FXML
+    private JFXComboBox<String> modelList;
 
     @FXML
     private VBox graphList;
@@ -58,17 +59,15 @@ public class FXMLController implements Initializable {
     private static final String HANDSHAKE_INIT = "Init";
     private static final String HANDSHAKE_ACK = "SyncAck";
 
-    private Tile gaugeTile;
-    private Tile barGaugeTile;
-    private Tile timeTile;
-    private Tile gaugeSparkLineTile;
-
-    private static final double TILE_WIDTH = 150;
-    private static final double TILE_HEIGHT = 150;
-
     private float previousVal = 0;
 
-    SegmentedBar bar1;
+    private File torcsFolder;
+    private String runtimedFolderPath;
+    private String tracksFolderPath;
+    private String modelsFolderPath;
+    private String quickRaceFilePath;
+
+    private Task<Boolean> torcsTask;
 
     /**
      * Initialize the controller
@@ -79,92 +78,6 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         createLapGraph();
-
-        testSegmentedBar();
-
-        gaugeTile = TileBuilder.create()
-                .skinType(SkinType.GAUGE)
-                .prefSize(TILE_WIDTH, TILE_HEIGHT)
-                .minValue(0)
-                .maxValue(300)
-                .title("Gauge Tile")
-                .unit("FPS")
-                .threshold(75)
-                .build();
-        frontFlowPane.getChildren().add(gaugeTile);
-
-        barGaugeTile = TileBuilder.create()
-                .skinType(SkinType.BAR_GAUGE)
-                .prefSize(TILE_WIDTH, TILE_HEIGHT)
-                .minValue(0)
-                .maxValue(200)
-                .startFromZero(true)
-                .threshold(80)
-                .thresholdVisible(true)
-                .title("BarGauge Tile")
-                .unit("F")
-                .text("Whatever text")
-                .gradientStops(new Stop(0, Bright.BLUE),
-                        new Stop(0.1, Bright.BLUE_GREEN),
-                        new Stop(0.2, Bright.GREEN),
-                        new Stop(0.3, Bright.GREEN_YELLOW),
-                        new Stop(0.4, Bright.YELLOW),
-                        new Stop(0.5, Bright.YELLOW_ORANGE),
-                        new Stop(0.6, Bright.ORANGE),
-                        new Stop(0.7, Bright.ORANGE_RED),
-                        new Stop(0.8, Bright.RED),
-                        new Stop(1.0, Dark.RED))
-                .strokeWithGradient(true)
-                .animated(true)
-                .build();
-        frontFlowPane.getChildren().add(barGaugeTile);
-
-        timeTile = TileBuilder.create()
-                .skinType(SkinType.TIME)
-                .prefSize(TILE_WIDTH, TILE_HEIGHT)
-                .title("Time Tile")
-                .text("Whatever text")
-                .duration(LocalTime.of(1, 22, 50))
-                .description("Average reply time")
-                .textVisible(true)
-                .build();
-        frontFlowPane.getChildren().add(timeTile);
-        timeTile.setValue(123.0);
-
-        gaugeSparkLineTile = TileBuilder.create()
-                .skinType(SkinType.GAUGE_SPARK_LINE)
-                .prefSize(TILE_WIDTH, TILE_HEIGHT)
-                .title("GaugeSparkLine")
-                .animated(true)
-                .maxValue(200)
-                .textVisible(false)
-                .averagingPeriod(25)
-                .autoReferenceValue(true)
-                .barColor(Tile.YELLOW_ORANGE)
-                .barBackgroundColor(Color.rgb(255, 255, 255, 0.1))
-                .sections(new eu.hansolo.tilesfx.Section(0, 33, Tile.LIGHT_GREEN),
-                        new eu.hansolo.tilesfx.Section(33, 67, Tile.YELLOW),
-                        new eu.hansolo.tilesfx.Section(67, 100, Tile.LIGHT_RED))
-                .sectionsVisible(true)
-                .highlightSections(true)
-                .strokeWithGradient(true)
-                .gradientStops(new Stop(0.0, Tile.LIGHT_GREEN),
-                        new Stop(0.33, Tile.LIGHT_GREEN),
-                        new Stop(0.33, Tile.YELLOW),
-                        new Stop(0.67, Tile.YELLOW),
-                        new Stop(0.67, Tile.LIGHT_RED),
-                        new Stop(1.0, Tile.LIGHT_RED))
-                .build();
-        frontFlowPane.getChildren().add(gaugeSparkLineTile);
-    }
-
-    private void testSegmentedBar() {
-        bar1 = new SegmentedBar();
-        bar1.setOrientation(Orientation.HORIZONTAL);
-        bar1.setMinHeight(15);
-        bar1.setPrefHeight(15);
-        bar1.setMaxHeight(15);
-        timelineList.getChildren().add(bar1);
     }
 
     private void createLapGraph() {
@@ -237,11 +150,35 @@ public class FXMLController implements Initializable {
 
     private void addData(Sensors message) {
         graphController.addData(message);
+    }
 
-        gaugeTile.setValue(message.getFps());//fps
-        barGaugeTile.setValue(message.getSpeedX());//rps
-        gaugeSparkLineTile.setValue(message.getSpeedX());//speedX
-        //bar1.getSegments().add(new SegmentedBar.Segment(1, String.valueOf(message.getSteer())));
+    private Task getTORCSTask() {
+        return new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+                ProcessBuilder builder = new ProcessBuilder(
+                        "cmd.exe", "/c",
+                        String.format("cd \"%s\\runtimed\" && wtorcs.exe -m quickrace.xml", torcsFolder.getAbsolutePath()));
+                builder.redirectErrorStream(true);
+                Process p = builder.start();
+
+                try (BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                    String line;
+                    while (true) {
+                        if (isCancelled()) {
+                            p.destroy();
+                            break;
+                        }
+                        line = r.readLine();
+                        if (line == null) {;
+                            break;
+                        }
+                        System.out.println(line);
+                    }
+                    return true;
+                }
+            }
+        };
     }
 
     /**
@@ -299,6 +236,101 @@ public class FXMLController implements Initializable {
      */
     @FXML
     private void clear() {
-        graphController.clear();
+        try {
+            //graphController.clear();
+            Runtime.getRuntime().exec("taskkill /F /IM wtorcs.exe");
+        } catch (IOException ex) {
+            System.out.println("Exception thrown here");
+        }
+
+        if (torcsTask != null && torcsTask.isRunning()) {
+            torcsTask.cancel(true);
+        }
+
+        graphController.finishLap();
     }
+
+    @FXML
+    private void loadData() {
+        //runRace();
+
+        List<float[]> data = Utils.loadCSV("dataFile-Lap 1.csv");
+
+        System.out.println(Arrays.toString(data.get(0)));
+        System.out.println(Arrays.toString(data.get(1)));
+    }
+
+    @FXML
+    private void saveData() {
+        List<float[][]> data = new ArrayList<>();
+        data.add(graphController.getDataList());
+        Utils.saveToCSV(data, "dataFile");
+    }
+
+    @FXML
+    private void selectFolder() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        torcsFolder = directoryChooser.showDialog(root.getScene().getWindow());
+
+        if (torcsFolder == null) {
+            //No Directory selected
+        } else {
+            String torcsPath = torcsFolder.getAbsolutePath();
+            runtimedFolderPath = torcsPath + "\\runtimed";
+            tracksFolderPath = torcsPath + "\\tracks";
+            modelsFolderPath = torcsPath + "\\networks";
+            quickRaceFilePath = torcsPath + "\\runtimed\\quickrace.xml";
+
+            File tracksFolder = new File(tracksFolderPath);
+            trackList.getItems().clear();
+            for (File trackType : tracksFolder.listFiles()) {
+                for (File track : trackType.listFiles()) {
+                    trackList.getItems().add(String.format("%s-->%s", trackType.getName(), track.getName()));
+                }
+            }
+
+            File modelsFolder = new File(modelsFolderPath);
+            modelList.getItems().clear();
+            modelList.getItems().setAll(modelsFolder.list());
+        }
+    }
+
+    @FXML
+    private void run() {
+        if (torcsFolder == null) {
+            System.out.println("No Directory Selected");
+        } else {
+            torcsTask = getTORCSTask();
+
+            Thread th = new Thread(torcsTask);
+            th.setDaemon(true);
+            th.start();
+            connect();
+        }
+    }
+
+    private void runRace() {
+        //Update track
+        try {
+            String[] trackDetails = trackList.getValue().split("-->");
+            Utils.updateTrack(trackDetails[1], trackDetails[0], quickRaceFilePath);
+        } catch (Exception ex) {
+            //Create new exception message
+            System.out.println("Had trouble with this");
+        }
+
+        //Remove existing model files (if any)
+        Utils.removeExistingModelFiles(runtimedFolderPath);
+
+        try {
+            //Move Model File
+            Utils.moveModelFiles(modelList.getValue(), modelsFolderPath, runtimedFolderPath);
+        } catch (Exception ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //run race
+        //run();
+    }
+
 }

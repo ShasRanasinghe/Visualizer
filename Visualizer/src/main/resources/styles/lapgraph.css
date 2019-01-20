@@ -38,7 +38,7 @@
 }
 .chart-plot-background {
     -fx-background-color: #575758;
-    -fx-foreground-color: white;
+    -fx-foreground-color: black;
     -fx-stroke: white;
 } 
 .chart-vertical-grid-lines {
@@ -55,9 +55,9 @@
 .axis {
 -fx-stroke: white;
 -fx-fill: white;
-    -fx-font-size: 1.4em;    
-    -fx-tick-label-fill: white;
-    -fx-font-family: Tahoma;
-    -fx-tick-length: 0;
-    -fx-minor-tick-length: 0;
+-fx-font-size: 1.4em;    
+-fx-text-background-color: white;
+-fx-font-family: Tahoma;
+-fx-tick-length: 8;
+-fx-minor-tick-length: 4;
 }
