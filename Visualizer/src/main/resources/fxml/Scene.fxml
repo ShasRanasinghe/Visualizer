@@ -155,12 +155,12 @@
                               <VBox fx:id="graphList" alignment="CENTER" spacing="10.0" />
                            </content>
                         </ScrollPane>
-                        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#stop" text="Stop" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#stop" text="Stop" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                            <graphic>
-                              <FontAwesomeIconView glyphName="STOP_CIRCLE_ALT" size="25" />
+                              <FontAwesomeIconView fill="CRIMSON" glyphName="STOP_CIRCLE_ALT" size="25" />
                            </graphic>
                         </JFXButton>
-                        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#returnToRunPane" text="Return" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#returnToRunPane" text="Return" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
                            <graphic>
                               <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
                            </graphic>
