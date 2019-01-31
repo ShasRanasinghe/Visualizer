@@ -3,7 +3,9 @@ package com.sranasing.visualizer;
 import TORCS_Sensors.Sensors_Message;
 import TORCS_Sensors.Sensors_Message.Sensors;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +19,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import org.zeromq.ZMQ;
@@ -28,16 +35,31 @@ import org.zeromq.ZMQ;
 public class FXMLController implements Initializable {
 
     @FXML
-    private VBox root;
+    private HBox root;
 
     @FXML
-    private JFXComboBox<String> trackList;
-
-    @FXML
-    private JFXComboBox<String> modelList;
+    private JFXComboBox<String> trackList, modelList;
 
     @FXML
     private VBox graphList;
+
+    @FXML
+    private JFXButton simulation_button, load_data_button, settings_button;
+
+    @FXML
+    private ScrollPane load_data_pane;
+
+    @FXML
+    private StackPane simulation_pane;
+
+    @FXML
+    private AnchorPane settings_pane, running_offline_pane, running_online_pane;
+
+    @FXML
+    private BorderPane run_pane, initializing_pane;
+
+    @FXML
+    private JFXTextField main_sim_folder_abspath;
 
     //Initialize the context of the device
     private ZMQ.Context context;
@@ -81,6 +103,9 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         createLapGraph();
         lapData = new ArrayList<>();
+
+        run_pane.toFront();
+        simulation_pane.toFront();
     }
 
     private void createLapGraph() {
@@ -94,6 +119,33 @@ public class FXMLController implements Initializable {
         }
     }
 
+    private boolean performHandshake() {
+        //Create the context
+        context = ZMQ.context(1);
+
+        //create the subscrier socket
+        subscriber = context.socket(ZMQ.SUB);
+        subscriber.setRcvHWM(0);
+        //Connect our subscriber socket with a PUB/SUB pair
+        subscriber.connect(SUBSCRIBER_PORT);
+        //subscribe to empty string to get all messages
+        subscriber.subscribe("".getBytes());
+
+        //Create the request socket
+        sync_socket = context.socket(ZMQ.REQ);
+        //Create synchronize port with a REQ/REP pair
+        sync_socket.connect(SYNC_PORT);
+
+        //wait for handshake
+        while (true) {
+            String recvString = subscriber.recvStr(0);
+            if (recvString.equals(HANDSHAKE_INIT)) {
+                sync_socket.send(HANDSHAKE_ACK);
+                return true;
+            }
+        }
+    }
+
     /**
      * Get the task that handles the updating of the fields
      *
@@ -103,6 +155,12 @@ public class FXMLController implements Initializable {
         Task task = new Task<Sensors>() {
             @Override
             protected Sensors call() throws Exception {
+                if (performHandshake()) {
+                    updateMessage("Connection Complete");
+                } else {
+                    return null;
+                }
+
                 Sensors message;
                 while (true) {
                     if (isCancelled()) {
@@ -130,6 +188,10 @@ public class FXMLController implements Initializable {
 
         task.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
             updateSensors((Sensors) newValue);
+        });
+
+        task.messageProperty().addListener((observable, oldValue, newValue) -> {
+            running_online_pane.toFront();
         });
 
         return task;
@@ -189,33 +251,7 @@ public class FXMLController implements Initializable {
     /**
      * Create context, set up connections, and perform handshake
      */
-    @FXML
     private void connect() {
-        //Create the context
-        context = ZMQ.context(1);
-
-        //create the subscrier socket
-        subscriber = context.socket(ZMQ.SUB);
-        subscriber.setRcvHWM(0);
-        //Connect our subscriber socket with a PUB/SUB pair
-        subscriber.connect(SUBSCRIBER_PORT);
-        //subscribe to empty string to get all messages
-        subscriber.subscribe("".getBytes());
-
-        //Create the request socket
-        sync_socket = context.socket(ZMQ.REQ);
-        //Create synchronize port with a REQ/REP pair
-        sync_socket.connect(SYNC_PORT);
-
-        //wait for handshake
-        while (true) {
-            String recvString = subscriber.recvStr(0);
-            if (recvString.equals(HANDSHAKE_INIT)) {
-                sync_socket.send(HANDSHAKE_ACK);
-                break;
-            }
-        }
-
         //Get updates from publisher
         updateStatusTask = getPortListenerTask();
         Thread th = new Thread(updateStatusTask);
@@ -226,8 +262,7 @@ public class FXMLController implements Initializable {
     /**
      * Close the sockets and connections
      */
-    @FXML
-    private void reset() {
+    private void closeConnection() {
         if (updateStatusTask.isRunning()) {
             updateStatusTask.cancel(false);
         }
@@ -236,17 +271,20 @@ public class FXMLController implements Initializable {
         context.term();
     }
 
-    /**
-     * Clear the fields
-     */
-    @FXML
-    private void clear() {
+    public void killTORCS() {
         try {
-            //graphController.clear();
             Runtime.getRuntime().exec("taskkill /F /IM wtorcs.exe");
         } catch (IOException ex) {
             System.out.println("Exception thrown here");
         }
+    }
+
+    /**
+     * Clear the fields
+     */
+    @FXML
+    private void stop() {
+        killTORCS();
 
         if (torcsTask != null && torcsTask.isRunning()) {
             torcsTask.cancel(true);
@@ -280,6 +318,7 @@ public class FXMLController implements Initializable {
             //No Directory selected
         } else {
             String torcsPath = torcsFolder.getAbsolutePath();
+            main_sim_folder_abspath.setText(torcsPath);
             runtimedFolderPath = torcsPath + "\\runtimed";
             tracksFolderPath = torcsPath + "\\tracks";
             modelsFolderPath = torcsPath + "\\networks";
@@ -301,6 +340,8 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void run() {
+        initializing_pane.toFront();
+
         runRace();
         if (torcsFolder == null) {
             System.out.println("No Directory Selected");
@@ -333,9 +374,22 @@ public class FXMLController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-        //run race
-        //run();
+    @FXML
+    private void handleMainMenuButtons(ActionEvent event) {
+        if (event.getSource() == simulation_button) {
+            simulation_pane.toFront();
+        } else if (event.getSource() == load_data_button) {
+            load_data_pane.toFront();
+        } else if (event.getSource() == settings_button) {
+            settings_pane.toFront();
+        }
+    }
+
+    @FXML
+    void returnToRunPane(ActionEvent event) {
+        run_pane.toFront();
     }
 
 }

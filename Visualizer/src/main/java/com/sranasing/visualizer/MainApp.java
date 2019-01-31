@@ -10,18 +10,23 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    FXMLController controller;
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
+        Parent root = loader.load();
+        controller = loader.getController();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Visualizer");
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest((event) -> {
             Platform.exit();
+            controller.killTORCS();
         });
     }
 
