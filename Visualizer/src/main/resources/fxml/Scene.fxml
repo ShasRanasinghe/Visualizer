@@ -40,9 +40,9 @@
             </AnchorPane>
             <AnchorPane pickOnBounds="false" style="-fx-background-color: #247ba0; -fx-background-radius: 10;">
                <children>
-                  <JFXButton fx:id="load_data_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Load Data" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXButton fx:id="settings_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <graphic>
-                        <MaterialDesignIconView glyphName="FILE_IMPORT" size="20" />
+                        <FontAwesomeIconView glyphName="GEARS" size="20" />
                      </graphic>
                      <font>
                         <Font size="14.0" />
@@ -53,11 +53,11 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-            <AnchorPane pickOnBounds="false" style="-fx-background-color: #247ba0; -fx-background-radius: 10;">
+            <AnchorPane pickOnBounds="false" style="-fx-background-color: #247ba0; -fx-background-radius: 10;" visible="false">
                <children>
-                  <JFXButton fx:id="settings_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXButton fx:id="load_data_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Load Data" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <graphic>
-                        <FontAwesomeIconView glyphName="GEARS" size="20" />
+                        <MaterialDesignIconView glyphName="FILE_IMPORT" size="20" />
                      </graphic>
                      <font>
                         <Font size="14.0" />
@@ -104,18 +104,18 @@
                         <FontAwesomeIconView glyphName="FOLDER" />
                      </graphic>
                   </JFXButton>
-                  <Label layoutX="14.0" layoutY="259.0" text="Optional" textFill="#cee5f2" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="257.0">
+                  <Label layoutX="14.0" layoutY="259.0" text="Optional" textFill="#cee5f2" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="257.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Line endX="115.0" layoutX="14.0" layoutY="278.0" startX="-6.0" AnchorPane.leftAnchor="20.0" />
-                  <JFXToggleButton alignment="BASELINE_LEFT" focusTraversable="false" layoutX="10.0" layoutY="286.0" prefHeight="50.0" prefWidth="163.0" style="-fx-padding: 0;" text="Live Data Tracking" textFill="#cee5f2" unToggleLineColor="#b86969" AnchorPane.leftAnchor="20.0">
+                  <Line endX="115.0" layoutX="14.0" layoutY="278.0" startX="-6.0" visible="false" AnchorPane.leftAnchor="20.0" />
+                  <JFXToggleButton alignment="BASELINE_LEFT" focusTraversable="false" layoutX="10.0" layoutY="286.0" prefHeight="50.0" prefWidth="163.0" style="-fx-padding: 0;" text="Live Data Tracking" textFill="#cee5f2" unToggleLineColor="#b86969" visible="false" AnchorPane.leftAnchor="20.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXToggleButton>
-                  <JFXToggleButton alignment="BASELINE_LEFT" focusTraversable="false" layoutX="10.0" layoutY="336.0" prefHeight="50.0" prefWidth="163.0" style="-fx-padding: 0;" text="Campaign Mode" textFill="#cee5f2" unToggleLineColor="#b86969" AnchorPane.leftAnchor="20.0">
+                  <JFXToggleButton alignment="BASELINE_LEFT" focusTraversable="false" layoutX="10.0" layoutY="336.0" prefHeight="50.0" prefWidth="163.0" style="-fx-padding: 0;" text="Campaign Mode" textFill="#cee5f2" unToggleLineColor="#b86969" visible="false" AnchorPane.leftAnchor="20.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -155,12 +155,12 @@
                               <VBox fx:id="graphList" alignment="CENTER" spacing="10.0" />
                            </content>
                         </ScrollPane>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#stop" text="Stop" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                        <JFXButton fx:id="stopButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#stop" style="-fx-background-radius: 50;" text="Stop" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
                            <graphic>
                               <FontAwesomeIconView fill="CRIMSON" glyphName="STOP_CIRCLE_ALT" size="25" />
                            </graphic>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#returnToRunPane" text="Return" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
+                        <JFXButton fx:id="backButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#returnToRunPane" style="-fx-background-radius: 50;" text="Return" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
                            <graphic>
                               <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
                            </graphic>

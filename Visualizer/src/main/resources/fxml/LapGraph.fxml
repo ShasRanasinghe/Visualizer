@@ -43,7 +43,7 @@
                   <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
                </padding>
             </JFXToggleButton>
-             <JFXToggleButton accessibleText="steerExpected" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Expected Steering">
+             <JFXToggleButton fx:id="expectedSteering" accessibleText="steerExpected" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Expected Steering">
                 <cursor>
                    <Cursor fx:constant="HAND" />
                 </cursor>
@@ -51,7 +51,7 @@
                    <Insets bottom="-2.0" left="5.0" right="5.0" top="-2.0" />
                 </padding>
              </JFXToggleButton>
-             <JFXToggleButton accessibleText="steerPredicted" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Predicted Steering">
+             <JFXToggleButton fx:id="predictedSteering" accessibleText="steerPredicted" contentDisplay="RIGHT" onAction="#addLine" pickOnBounds="false" size="5.0" styleClass="sensorButton" stylesheets="@../styles/lapgraph.css" text="Predicted Steering">
                 <cursor>
                    <Cursor fx:constant="HAND" />
                 </cursor>

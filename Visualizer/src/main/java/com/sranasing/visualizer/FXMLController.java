@@ -61,6 +61,12 @@ public class FXMLController implements Initializable {
     @FXML
     private JFXTextField main_sim_folder_abspath;
 
+    @FXML
+    private JFXButton backButton;
+
+    @FXML
+    private JFXButton stopButton;
+
     //Initialize the context of the device
     private ZMQ.Context context;
 
@@ -207,7 +213,7 @@ public class FXMLController implements Initializable {
             if (message.getCuLapTime() < previousVal) { //new lap started
                 System.out.println("New Lap Started");
                 graphController.finishLap();
-                lapData.add(graphController.getDataList());
+                //lapData.add(graphController.getDataList());
                 createLapGraph();
             }
             addData(message);
@@ -291,7 +297,11 @@ public class FXMLController implements Initializable {
         }
 
         graphController.finishLap();
-        lapData.add(graphController.getDataList());
+        closeConnection();
+        //lapData.add(graphController.getDataList());
+        backButton.setVisible(true);
+        stopButton.setVisible(false);
+
     }
 
     @FXML
@@ -320,7 +330,7 @@ public class FXMLController implements Initializable {
             String torcsPath = torcsFolder.getAbsolutePath();
             main_sim_folder_abspath.setText(torcsPath);
             runtimedFolderPath = torcsPath + "\\runtimed";
-            tracksFolderPath = torcsPath + "\\tracks";
+            tracksFolderPath = runtimedFolderPath + "\\tracks";
             modelsFolderPath = torcsPath + "\\networks";
             quickRaceFilePath = torcsPath + "\\runtimed\\quickrace.xml";
 
@@ -352,6 +362,8 @@ public class FXMLController implements Initializable {
             th.setDaemon(true);
             th.start();
             connect();
+            backButton.setVisible(false);
+            stopButton.setVisible(true);
         }
     }
 
@@ -389,7 +401,12 @@ public class FXMLController implements Initializable {
 
     @FXML
     void returnToRunPane(ActionEvent event) {
+        graphList.getChildren().clear();
+        createLapGraph();
+        lapData = new ArrayList<>();
+
         run_pane.toFront();
+        simulation_pane.toFront();
     }
 
 }
