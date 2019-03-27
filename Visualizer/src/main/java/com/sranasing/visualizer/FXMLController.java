@@ -30,6 +30,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import org.zeromq.ZMQ;
 
 public class FXMLController implements Initializable {
@@ -81,7 +83,7 @@ public class FXMLController implements Initializable {
 
     private LapGraphController graphController;
 
-    private List<float[][]> lapData;
+    private List<LapGraphController> controllerList;
 
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
@@ -108,7 +110,7 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         createLapGraph();
-        lapData = new ArrayList<>();
+        controllerList = new ArrayList<>();
 
         run_pane.toFront();
         simulation_pane.toFront();
@@ -185,7 +187,7 @@ public class FXMLController implements Initializable {
                         updateValue(message);
                     } catch (InvalidProtocolBufferException ex) {
                         System.out.println("Something went wrong");
-                        //Invalid data has been through the port
+                        //Invalid data has been sent through the port
                     }
                 }
                 return null;
@@ -213,7 +215,7 @@ public class FXMLController implements Initializable {
             if (message.getCuLapTime() < previousVal) { //new lap started
                 System.out.println("New Lap Started");
                 graphController.finishLap();
-                //lapData.add(graphController.getDataList());
+                controllerList.add(graphController);
                 createLapGraph();
             }
             addData(message);
@@ -298,30 +300,39 @@ public class FXMLController implements Initializable {
 
         graphController.finishLap();
         closeConnection();
-        //lapData.add(graphController.getDataList());
+        controllerList.add(graphController);
         backButton.setVisible(true);
         stopButton.setVisible(false);
+
+        //Save data
+        for (int i = 0; i < controllerList.size(); i++) {
+            saveData(controllerList.get(i).getDataList(), i);
+        }
 
     }
 
     @FXML
     private void loadData() {
-        //runRace();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Lap Data");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Lap Data Files", "*.csv"));
+        File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+        List<float[]> data = Utils.loadCSV(selectedFile);
 
-        List<float[]> data = Utils.loadCSV("dataFile-Lap 1.csv");
-
-        System.out.println(Arrays.toString(data.get(0)));
-        System.out.println(Arrays.toString(data.get(1)));
+        System.out.println("Predicted: " + Arrays.toString(data.get(0)));
+        System.out.println("Expected: " + Arrays.toString(data.get(1)));
     }
 
     @FXML
-    private void saveData() {
-        Utils.saveToCSV(lapData, "dataFile");
+    private void saveData(float[][] lapData, int lap) {
+        Utils.saveToCSV(lapData, trackList.getValue(), lap);
     }
 
     @FXML
     private void selectFolder() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose TORCS Folder");
         torcsFolder = directoryChooser.showDialog(root.getScene().getWindow());
 
         if (torcsFolder == null) {
@@ -338,7 +349,7 @@ public class FXMLController implements Initializable {
             trackList.getItems().clear();
             for (File trackType : tracksFolder.listFiles()) {
                 for (File track : trackType.listFiles()) {
-                    trackList.getItems().add(String.format("%s-->%s", trackType.getName(), track.getName()));
+                    trackList.getItems().add(String.format("%s--%s", trackType.getName(), track.getName()));
                 }
             }
 
@@ -370,7 +381,7 @@ public class FXMLController implements Initializable {
     private void runRace() {
         //Update track
         try {
-            String[] trackDetails = trackList.getValue().split("-->");
+            String[] trackDetails = trackList.getValue().split("--");
             Utils.updateTrack(trackDetails[1], trackDetails[0], quickRaceFilePath);
         } catch (Exception ex) {
             //Create new exception message
@@ -403,7 +414,7 @@ public class FXMLController implements Initializable {
     void returnToRunPane(ActionEvent event) {
         graphList.getChildren().clear();
         createLapGraph();
-        lapData = new ArrayList<>();
+        controllerList = new ArrayList<>();
 
         run_pane.toFront();
         simulation_pane.toFront();

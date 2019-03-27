@@ -11,7 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,23 +130,24 @@ public final class Utils {
         }
     }
 
-    public static void saveToCSV(List<float[][]> data, String fileName) {
-        for (int lap = data.size() - 1; lap >= 0; lap--) {
-            try (FileWriter writer = new FileWriter(fileName + "-Lap" + (lap + 1) + ".csv")) {
-                for (int i = 0; i < data.get(lap)[0].length; i++) {
-                    writer.append(data.get(lap)[0][i] + COMMA_DELIMITER + data.get(lap)[1][i]);
-                    writer.append("\n");
-                }
-                writer.flush();
-            } catch (IOException ex) {
-                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+    public static void saveToCSV(float[][] data, String trackname, int lap) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH-mm-ss");
+        Date date = new Date();
+        File file = new File(dateFormat.format(date) + "___" + trackname + "___Lap-" + (lap + 1) + ".csv");
+        try (FileWriter writer = new FileWriter(file)) {
+            for (int i = 0; i < data[0].length; i++) {
+                writer.append(data[0][i] + COMMA_DELIMITER + data[1][i]);
+                writer.append("\n");
             }
+            writer.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static List<float[]> loadCSV(String filePath) {
+    public static List<float[]> loadCSV(File file) {
         List<float[]> data = new ArrayList<>();
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(file))) {
             List<Float> predicted = new ArrayList<>();
             List<Float> expected = new ArrayList<>();
             String line = "";

@@ -40,9 +40,9 @@
             </AnchorPane>
             <AnchorPane pickOnBounds="false" style="-fx-background-color: #247ba0; -fx-background-radius: 10;">
                <children>
-                  <JFXButton fx:id="settings_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXButton fx:id="load_data_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Load Data" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <graphic>
-                        <FontAwesomeIconView glyphName="GEARS" size="20" />
+                        <MaterialDesignIconView glyphName="FILE_IMPORT" size="20" />
                      </graphic>
                      <font>
                         <Font size="14.0" />
@@ -53,11 +53,11 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-            <AnchorPane pickOnBounds="false" style="-fx-background-color: #247ba0; -fx-background-radius: 10;" visible="false">
+            <AnchorPane pickOnBounds="false" style="-fx-background-color: #247ba0; -fx-background-radius: 10;">
                <children>
-                  <JFXButton fx:id="load_data_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Load Data" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXButton fx:id="settings_button" alignment="BASELINE_LEFT" buttonType="RAISED" focusTraversable="false" onAction="#handleMainMenuButtons" prefHeight="50.0" prefWidth="115.0" styleClass="menu-button" stylesheets="@../styles/Styles.css" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <graphic>
-                        <MaterialDesignIconView glyphName="FILE_IMPORT" size="20" />
+                        <FontAwesomeIconView glyphName="GEARS" size="20" />
                      </graphic>
                      <font>
                         <Font size="14.0" />
@@ -74,22 +74,6 @@
          </padding></VBox>
       <StackPane prefHeight="400.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
          <children>
-            <ScrollPane fx:id="load_data_pane" fitToWidth="true" prefHeight="400.0" prefWidth="600.0" styleClass="scrollPane" stylesheets="@../styles/Styles.css">
-               <content>
-                  <VBox alignment="CENTER" styleClass="main-pane" stylesheets="@../styles/Styles.css">
-                     <children>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" onAction="#loadData" prefHeight="350.0" prefWidth="580.0" style="-fx-border-color: black; -fx-border-radius: 40;">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="PLUS" size="80" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
             <AnchorPane fx:id="settings_pane" prefHeight="200.0" prefWidth="200.0" styleClass="main-pane" stylesheets="@../styles/Styles.css">
                <children>
                   <JFXComboBox fx:id="trackList" focusColor="#cee5f2" focusTraversable="false" labelFloat="true" layoutX="55.0" layoutY="72.0" prefHeight="25.0" prefWidth="500.0" promptText="Race Track" style="-fx-prompt-text-fill: #cee5f2;" unFocusColor="BLACK" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
@@ -169,6 +153,22 @@
                   </AnchorPane>
                </children>
             </StackPane>
+            <ScrollPane fx:id="load_data_pane" fitToWidth="true" prefHeight="400.0" prefWidth="600.0" styleClass="scrollPane" stylesheets="@../styles/Styles.css">
+               <content>
+                  <VBox alignment="CENTER" styleClass="main-pane" stylesheets="@../styles/Styles.css">
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" onAction="#loadData" prefHeight="350.0" prefWidth="580.0" style="-fx-border-color: black; -fx-border-radius: 40;">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="PLUS" size="80" />
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
       </StackPane>
    </children>
