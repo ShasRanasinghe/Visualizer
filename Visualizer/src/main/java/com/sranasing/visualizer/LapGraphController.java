@@ -23,12 +23,6 @@ import javafx.scene.chart.LineChart;
 public class LapGraphController implements Initializable {
 
     @FXML
-    private JFXToggleButton expectedSteering;
-
-    @FXML
-    private JFXToggleButton predictedSteering;
-
-    @FXML
     private LineChart<Number, Number> plot;
 
     private HashMap<String, SensorData> sensorMap;
@@ -48,9 +42,6 @@ public class LapGraphController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initializeDataStuctures();
-
-        addLine(new ActionEvent(expectedSteering, expectedSteering));
-        addLine(new ActionEvent(predictedSteering, predictedSteering));
     }
 
     private void initializeDataStuctures() {
@@ -73,14 +64,13 @@ public class LapGraphController implements Initializable {
     }
 
     public void addData(Sensors_Message.Sensors message) {
-        Float x = message.getDistFromStart();
-        angle.addData(x, message.getAngle());
-        steerPredicted.addData(x, message.getSteerPredicted());
-        steerExpected.addData(x, message.getSteerExpected());
-        distToMiddle.addData(x, message.getDistToMiddle());
+        angle.addData(message.getAngle());
+        steerPredicted.addData(message.getSteerPredicted());
+        steerExpected.addData(message.getSteerExpected());
+        distToMiddle.addData(message.getDistToMiddle());
         float error = Math.abs(message.getSteerPredicted() - message.getSteerExpected());
         errorSum += error;
-        absError.addData(x, error);
+        absError.addData(error);
         count++;
     }
 

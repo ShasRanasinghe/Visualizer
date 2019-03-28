@@ -153,22 +153,7 @@
                   </AnchorPane>
                </children>
             </StackPane>
-            <ScrollPane fx:id="load_data_pane" fitToWidth="true" prefHeight="400.0" prefWidth="600.0" styleClass="scrollPane" stylesheets="@../styles/Styles.css">
-               <content>
-                  <VBox alignment="CENTER" styleClass="main-pane" stylesheets="@../styles/Styles.css">
-                     <children>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" onAction="#loadData" prefHeight="350.0" prefWidth="580.0" style="-fx-border-color: black; -fx-border-radius: 40;">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="PLUS" size="80" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+            <StackPane fx:id="load_data_pane" styleClass="main-pane" stylesheets="@../styles/Styles.css" />
          </children>
       </StackPane>
    </children>

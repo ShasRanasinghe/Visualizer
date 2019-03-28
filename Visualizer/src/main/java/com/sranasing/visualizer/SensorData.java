@@ -39,7 +39,7 @@ public class SensorData implements Serializable {
         intermediate_Data = new ArrayList<>();
     }
 
-    public void addData(Float x, Float y) {
+    public void addData(Float y) {
         if (isLive) {
             sensorDataList.getData().add(new Data<>(lapMessageCount, y));
         }
@@ -49,9 +49,6 @@ public class SensorData implements Serializable {
 
     public Series<Number, Number> addToGraph() {
         isLive = true;
-//        for (int i = 0; i < intermediate_Data.size(); i++) {
-//            sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
-//        }
         if (lapFinished) {
             for (int i = 0; i < data.length; i++) {
                 sensorDataList.getData().add(new Data<>(i, data[i]));

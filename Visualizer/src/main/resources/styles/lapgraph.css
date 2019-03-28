@@ -52,6 +52,9 @@
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
 .axis {
 -fx-stroke: white;
 -fx-fill: white;

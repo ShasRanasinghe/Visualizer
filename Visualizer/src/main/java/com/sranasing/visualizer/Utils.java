@@ -130,18 +130,26 @@ public final class Utils {
         }
     }
 
-    public static void saveToCSV(float[][] data, String trackname, int lap) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH-mm-ss");
+    public static void saveToCSV(List<LapGraphController> lapControllers, String trackname) {
+        DateFormat dateFormat = new SimpleDateFormat("yy-MM-d HH-mm-ss");
         Date date = new Date();
-        File file = new File(dateFormat.format(date) + "___" + trackname + "___Lap-" + (lap + 1) + ".csv");
-        try (FileWriter writer = new FileWriter(file)) {
-            for (int i = 0; i < data[0].length; i++) {
-                writer.append(data[0][i] + COMMA_DELIMITER + data[1][i]);
-                writer.append("\n");
+        String directoryName = dateFormat.format(date);
+        File directory = new File(directoryName);
+        directory.mkdir();
+
+        for (int lap = 0; lap < lapControllers.size(); lap++) {
+            File file = new File(directoryName + "/" + trackname + "_Lap-" + (lap + 1) + ".csv");
+            float[][] data = lapControllers.get(lap).getDataList();
+
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < data[0].length; i++) {
+                    writer.append(data[0][i] + COMMA_DELIMITER + data[1][i]);
+                    writer.append("\n");
+                }
+                writer.flush();
+            } catch (IOException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
-            writer.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

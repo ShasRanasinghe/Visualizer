@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.net.URL?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" style="-fx-background-color: #575758;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sranasing.visualizer.LoadGraphController">
+    <stylesheets>
+        <URL value="@/styles/lapgraph.css" />
+    </stylesheets>
+    <children>
+       <LineChart fx:id="plot" alternativeColumnFillVisible="true" createSymbols="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <xAxis>
+           <NumberAxis side="BOTTOM" stylesheets="@../styles/lapgraph.css" />
+         </xAxis>
+         <yAxis>
+           <NumberAxis side="LEFT" stylesheets="@../styles/lapgraph.css" />
+         </yAxis>
+       </LineChart>
+      <JFXNodesList rotate="180.0" spacing="4.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="20.0">
+         <children>
+             <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" styleClass="nodeButton" stylesheets="@../styles/lapgraph.css" text="Button">
+                <graphic>
+                   <MaterialDesignIconView glyphName="PLUS" size="15" />
+                </graphic>
+             </JFXButton>
+            <JFXButton onAction="#load" styleClass="nodeButton" stylesheets="@../styles/lapgraph.css" text="Load Data" />
+            <JFXButton onAction="#clear" styleClass="nodeButton" stylesheets="@../styles/lapgraph.css" text="Clear" />
+         </children>
+      </JFXNodesList>
+    </children>
+</AnchorPane>

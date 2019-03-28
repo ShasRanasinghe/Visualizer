@@ -23,15 +23,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import org.zeromq.ZMQ;
 
 public class FXMLController implements Initializable {
@@ -49,7 +46,7 @@ public class FXMLController implements Initializable {
     private JFXButton simulation_button, load_data_button, settings_button;
 
     @FXML
-    private ScrollPane load_data_pane;
+    private StackPane load_data_pane;
 
     @FXML
     private StackPane simulation_pane;
@@ -114,6 +111,8 @@ public class FXMLController implements Initializable {
 
         run_pane.toFront();
         simulation_pane.toFront();
+
+        createLoadGraph();
     }
 
     private void createLapGraph() {
@@ -122,6 +121,16 @@ public class FXMLController implements Initializable {
             AnchorPane graph = loader.load();
             graphController = loader.getController();
             graphList.getChildren().add(graph);
+        } catch (IOException ex) {
+            System.out.println("There was an issue loading the graph FXML file");
+        }
+    }
+
+    private void createLoadGraph() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoadGraph.fxml"));
+            AnchorPane graph = loader.load();
+            load_data_pane.getChildren().add(graph);
         } catch (IOException ex) {
             System.out.println("There was an issue loading the graph FXML file");
         }
@@ -305,28 +314,13 @@ public class FXMLController implements Initializable {
         stopButton.setVisible(false);
 
         //Save data
-        for (int i = 0; i < controllerList.size(); i++) {
-            saveData(controllerList.get(i).getDataList(), i);
-        }
+        saveData(controllerList);
 
     }
 
     @FXML
-    private void loadData() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Load Lap Data");
-        fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Lap Data Files", "*.csv"));
-        File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
-        List<float[]> data = Utils.loadCSV(selectedFile);
-
-        System.out.println("Predicted: " + Arrays.toString(data.get(0)));
-        System.out.println("Expected: " + Arrays.toString(data.get(1)));
-    }
-
-    @FXML
-    private void saveData(float[][] lapData, int lap) {
-        Utils.saveToCSV(lapData, trackList.getValue(), lap);
+    private void saveData(List<LapGraphController> lapControllers) {
+        Utils.saveToCSV(lapControllers, modelList.getValue() + "_" + trackList.getValue().split("--")[1]);
     }
 
     @FXML
