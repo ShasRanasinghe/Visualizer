@@ -27,7 +27,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.apache.commons.lang3.ArrayUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -138,12 +137,23 @@ public final class Utils {
         directory.mkdir();
 
         for (int lap = 0; lap < lapControllers.size(); lap++) {
-            File file = new File(directoryName + "/" + trackname + "_Lap-" + (lap + 1) + ".csv");
-            float[][] data = lapControllers.get(lap).getDataList();
+            List<float[][]> dataList = lapControllers.get(lap).getDataList();
 
-            try (FileWriter writer = new FileWriter(file)) {
-                for (int i = 0; i < data[0].length; i++) {
-                    writer.append(data[0][i] + COMMA_DELIMITER + data[1][i]);
+            File filePredicted = new File(directoryName + "/" + trackname + "_Lap-" + (lap + 1) + "-Predicted.csv");
+            try (FileWriter writer = new FileWriter(filePredicted)) {
+                for (int i = 0; i < dataList.get(0)[0].length; i++) {
+                    writer.append(dataList.get(0)[0][i] + COMMA_DELIMITER + dataList.get(0)[1][i]);
+                    writer.append("\n");
+                }
+                writer.flush();
+            } catch (IOException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            File fileExpected = new File(directoryName + "/" + trackname + "_Lap-" + (lap + 1) + "-Expected.csv");
+            try (FileWriter writer = new FileWriter(fileExpected)) {
+                for (int i = 0; i < dataList.get(1)[0].length; i++) {
+                    writer.append(dataList.get(1)[0][i] + COMMA_DELIMITER + dataList.get(1)[1][i]);
                     writer.append("\n");
                 }
                 writer.flush();
@@ -153,21 +163,16 @@ public final class Utils {
         }
     }
 
-    public static List<float[]> loadCSV(File file) {
-        List<float[]> data = new ArrayList<>();
+    public static ArrayList<Tuple> loadCSV(File file) {
+        ArrayList<Tuple> data = new ArrayList<>();
         try (BufferedReader fileReader = new BufferedReader(new FileReader(file))) {
-            List<Float> predicted = new ArrayList<>();
-            List<Float> expected = new ArrayList<>();
             String line = "";
             while ((line = fileReader.readLine()) != null) {
                 String[] tokens = line.split(COMMA_DELIMITER);
                 if (!line.isEmpty() && tokens.length > 0) {
-                    predicted.add(Float.parseFloat(tokens[0]));
-                    expected.add(Float.parseFloat(tokens[1]));
+                    data.add(new Tuple(Float.parseFloat(tokens[0]), Float.parseFloat(tokens[1])));
                 }
             }
-            data.add(ArrayUtils.toPrimitive(predicted.toArray(new Float[predicted.size()])));
-            data.add(ArrayUtils.toPrimitive(expected.toArray(new Float[expected.size()])));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

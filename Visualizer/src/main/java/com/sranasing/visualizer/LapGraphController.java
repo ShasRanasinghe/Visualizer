@@ -8,7 +8,9 @@ package com.sranasing.visualizer;
 import TORCS_Sensors.Sensors_Message;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,13 +66,14 @@ public class LapGraphController implements Initializable {
     }
 
     public void addData(Sensors_Message.Sensors message) {
-        angle.addData(message.getAngle());
-        steerPredicted.addData(message.getSteerPredicted());
-        steerExpected.addData(message.getSteerExpected());
-        distToMiddle.addData(message.getDistToMiddle());
+        float x = message.getDistFromStart();
+        angle.addData(x, message.getAngle());
+        steerPredicted.addData(x, message.getSteerPredicted());
+        steerExpected.addData(x, message.getSteerExpected());
+        distToMiddle.addData(x, message.getDistToMiddle());
         float error = Math.abs(message.getSteerPredicted() - message.getSteerExpected());
         errorSum += error;
-        absError.addData(error);
+        absError.addData(x, error);
         count++;
     }
 
@@ -89,11 +92,11 @@ public class LapGraphController implements Initializable {
         count = 0;
     }
 
-    public float[][] getDataList() {
-        return new float[][]{
-            steerPredicted.getData(),
-            steerExpected.getData()
-        };
+    public List<float[][]> getDataList() {
+        List<float[][]> dataList = new ArrayList<>();
+        dataList.add(steerPredicted.getData());
+        dataList.add(steerExpected.getData());
+        return dataList;
     }
 
     @FXML

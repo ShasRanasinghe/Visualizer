@@ -7,6 +7,7 @@ package com.sranasing.visualizer;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -45,19 +46,16 @@ public class LoadGraphController implements Initializable {
             return;
         }
         for (File selectedFile : selectedFiles) {
-            List<float[]> data = Utils.loadCSV(selectedFile);
+            ArrayList<Tuple> data = Utils.loadCSV(selectedFile);
 
-            Series<Number, Number> predicted = new Series();
-            predicted.setName(selectedFile.getName() + "-Predicted");
-            Series<Number, Number> expected = new Series();
-            expected.setName(selectedFile.getName() + "-Expected");
+            Series<Number, Number> series = new Series();
+            series.setName(selectedFile.getName());
 
-            for (int i = 0; i < data.get(0).length; i++) {
-                predicted.getData().add(new XYChart.Data<>(i, data.get(0)[i]));
-                expected.getData().add(new XYChart.Data<>(i, data.get(1)[i]));
+            for (int i = 0; i < data.size(); i++) {
+                series.getData().add(new XYChart.Data<>(data.get(i).x, data.get(i).y));
             }
 
-            plot.getData().addAll(predicted, expected);
+            plot.getData().addAll(series);
         }
     }
 

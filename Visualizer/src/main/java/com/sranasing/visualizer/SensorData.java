@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
@@ -17,16 +16,14 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class SensorData implements Serializable {
 
-    private ArrayList<Float> intermediate_Data;
+    private ArrayList<Tuple> intermediate_Data;
 
     //data series used in the line chart
     private Series<Number, Number> sensorDataList;
 
-    private float[] data;
+    private float[][] data;
 
     private boolean isLive = false;
-
-    private int lapMessageCount = 0;
 
     private String name;
 
@@ -39,23 +36,22 @@ public class SensorData implements Serializable {
         intermediate_Data = new ArrayList<>();
     }
 
-    public void addData(Float y) {
+    public void addData(float x, float y) {
         if (isLive) {
-            sensorDataList.getData().add(new Data<>(lapMessageCount, y));
+            sensorDataList.getData().add(new Data<>(x, y));
         }
-        intermediate_Data.add(y);
-        lapMessageCount++;
+        intermediate_Data.add(new Tuple(x, y));
     }
 
     public Series<Number, Number> addToGraph() {
         isLive = true;
         if (lapFinished) {
-            for (int i = 0; i < data.length; i++) {
-                sensorDataList.getData().add(new Data<>(i, data[i]));
+            for (int i = 0; i < data[0].length; i++) {
+                sensorDataList.getData().add(new Data<>(data[0][i], data[1][i]));
             }
         } else {
-            for (int i = 0; i < intermediate_Data.size(); i++) {
-                sensorDataList.getData().add(new Data<>(i, intermediate_Data.get(i)));
+            for (Tuple tp : intermediate_Data) {
+                sensorDataList.getData().add(new Data<>(tp.x, tp.y));
             }
         }
         return sensorDataList;
@@ -68,16 +64,21 @@ public class SensorData implements Serializable {
     }
 
     public void finishLap() {
-        data = ArrayUtils.toPrimitive(intermediate_Data.toArray(new Float[intermediate_Data.size()]));
+        data = new float[2][intermediate_Data.size()];
+        for (int i = 0; i < intermediate_Data.size(); i++) {
+            data[0][i] = intermediate_Data.get(i).x;
+            data[1][i] = intermediate_Data.get(i).y;
+        }
+
         intermediate_Data = new ArrayList<>();
         lapFinished = true;
     }
 
-    public float[] getData() {
+    public float[][] getData() {
         return data;
     }
 
-    public void setData(float[] data) {
+    public void setData(float[][] data) {
         this.data = data;
     }
 

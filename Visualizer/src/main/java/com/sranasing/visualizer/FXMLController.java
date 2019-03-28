@@ -37,7 +37,10 @@ public class FXMLController implements Initializable {
     private HBox root;
 
     @FXML
-    private JFXComboBox<String> trackList, modelList;
+    private JFXComboBox<String> modelList;
+
+    @FXML
+    private JFXComboBox<String> trackList;
 
     @FXML
     private VBox graphList;
