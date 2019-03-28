@@ -1,7 +1,45 @@
-.button {
+.menu-button{
+    -fx-padding: 4.7 9.3 4.7 9.3;
+    -fx-background-radius: 10;
+    -fx-text-fill: #cee5f2;
     -fx-font-weight: bold;
+    -fx-font-size: 14;
 }
 
-.mygridStyle Line {
-  -fx-stroke: black;
+.menu-button:hover{
+    -fx-background-color: #5f9fb9;
+    -fx-background-radius: 10;
+    -fx-text-fill: #cee5f2;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.main-pane{
+    -fx-background-color: #637081;
+}
+
+.scrollPane >.viewport{
+    -fx-background-color: #637081;
+}
+
+.scrollPane{
+    -fx-background-color: #637081;
+}
+
+.play-button{
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-color: black;
+    -fx-border-width: 3;
+    -fx-background-color: forestgreen;
+    -jfx-button-type: RAISED;
+}
+
+.play-button:hover{
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-color: black;
+    -fx-border-width: 3;
+    -fx-background-color: #359536;
+    -jfx-button-type: RAISED;
 }

@@ -28,13 +28,13 @@ public final class Sensors_Message {
     float getAccel();
 
     /**
-     * <code>optional float breaking = 2;</code>
+     * <code>optional float braking = 2;</code>
      */
-    boolean hasBreaking();
+    boolean hasBraking();
     /**
-     * <code>optional float breaking = 2;</code>
+     * <code>optional float braking = 2;</code>
      */
-    float getBreaking();
+    float getBraking();
 
     /**
      * <code>optional int32 gear = 3;</code>
@@ -46,191 +46,128 @@ public final class Sensors_Message {
     int getGear();
 
     /**
-     * <code>optional float steer = 4;</code>
+     * <code>optional float steerPredicted = 4;</code>
      */
-    boolean hasSteer();
+    boolean hasSteerPredicted();
     /**
-     * <code>optional float steer = 4;</code>
+     * <code>optional float steerPredicted = 4;</code>
      */
-    float getSteer();
+    float getSteerPredicted();
 
     /**
-     * <code>optional int32 meta = 5;</code>
+     * <code>optional float steerExpected = 5;</code>
      */
-    boolean hasMeta();
+    boolean hasSteerExpected();
     /**
-     * <code>optional int32 meta = 5;</code>
+     * <code>optional float steerExpected = 5;</code>
      */
-    int getMeta();
+    float getSteerExpected();
 
     /**
-     * <code>optional float clutch = 6;</code>
-     */
-    boolean hasClutch();
-    /**
-     * <code>optional float clutch = 6;</code>
-     */
-    float getClutch();
-
-    /**
-     * <code>optional int32 focus = 7;</code>
-     */
-    boolean hasFocus();
-    /**
-     * <code>optional int32 focus = 7;</code>
-     */
-    int getFocus();
-
-    /**
-     * <code>optional float angle = 8;</code>
+     * <code>optional float angle = 6;</code>
      */
     boolean hasAngle();
     /**
-     * <code>optional float angle = 8;</code>
+     * <code>optional float angle = 6;</code>
      */
     float getAngle();
 
     /**
-     * <code>optional float cuLapTime = 9;</code>
+     * <code>optional float cuLapTime = 7;</code>
      */
     boolean hasCuLapTime();
     /**
-     * <code>optional float cuLapTime = 9;</code>
+     * <code>optional float cuLapTime = 7;</code>
      */
     float getCuLapTime();
 
     /**
-     * <code>optional int32 damage = 10;</code>
-     */
-    boolean hasDamage();
-    /**
-     * <code>optional int32 damage = 10;</code>
-     */
-    int getDamage();
-
-    /**
-     * <code>optional float distFromStart = 11;</code>
+     * <code>optional float distFromStart = 8;</code>
      */
     boolean hasDistFromStart();
     /**
-     * <code>optional float distFromStart = 11;</code>
+     * <code>optional float distFromStart = 8;</code>
      */
     float getDistFromStart();
 
     /**
-     * <code>optional float totalDistFromStart = 12;</code>
+     * <code>optional float totalDistFromStart = 9;</code>
      */
     boolean hasTotalDistFromStart();
     /**
-     * <code>optional float totalDistFromStart = 12;</code>
+     * <code>optional float totalDistFromStart = 9;</code>
      */
     float getTotalDistFromStart();
 
     /**
-     * <code>optional float distRaced = 13;</code>
+     * <code>optional float distRaced = 10;</code>
      */
     boolean hasDistRaced();
     /**
-     * <code>optional float distRaced = 13;</code>
+     * <code>optional float distRaced = 10;</code>
      */
     float getDistRaced();
 
     /**
-     * <code>optional float fuel = 14;</code>
-     */
-    boolean hasFuel();
-    /**
-     * <code>optional float fuel = 14;</code>
-     */
-    float getFuel();
-
-    /**
-     * <code>optional float lastLapTime = 15;</code>
+     * <code>optional float lastLapTime = 11;</code>
      */
     boolean hasLastLapTime();
     /**
-     * <code>optional float lastLapTime = 15;</code>
+     * <code>optional float lastLapTime = 11;</code>
      */
     float getLastLapTime();
 
     /**
-     * <code>optional int32 racePos = 16;</code>
-     */
-    boolean hasRacePos();
-    /**
-     * <code>optional int32 racePos = 16;</code>
-     */
-    int getRacePos();
-
-    /**
-     * <code>optional float rpm = 17;</code>
+     * <code>optional float rpm = 12;</code>
      */
     boolean hasRpm();
     /**
-     * <code>optional float rpm = 17;</code>
+     * <code>optional float rpm = 12;</code>
      */
     float getRpm();
 
     /**
-     * <code>optional float speedX = 18;</code>
+     * <code>optional float speedX = 13;</code>
      */
     boolean hasSpeedX();
     /**
-     * <code>optional float speedX = 18;</code>
+     * <code>optional float speedX = 13;</code>
      */
     float getSpeedX();
 
     /**
-     * <code>optional float speedY = 19;</code>
+     * <code>optional float speedY = 14;</code>
      */
     boolean hasSpeedY();
     /**
-     * <code>optional float speedY = 19;</code>
+     * <code>optional float speedY = 14;</code>
      */
     float getSpeedY();
 
     /**
-     * <code>optional float speedZ = 20;</code>
-     */
-    boolean hasSpeedZ();
-    /**
-     * <code>optional float speedZ = 20;</code>
-     */
-    float getSpeedZ();
-
-    /**
-     * <code>optional float distToMiddle = 21;</code>
+     * <code>optional float distToMiddle = 15;</code>
      */
     boolean hasDistToMiddle();
     /**
-     * <code>optional float distToMiddle = 21;</code>
+     * <code>optional float distToMiddle = 15;</code>
      */
     float getDistToMiddle();
 
     /**
-     * <code>optional float posZ = 22;</code>
-     */
-    boolean hasPosZ();
-    /**
-     * <code>optional float posZ = 22;</code>
-     */
-    float getPosZ();
-
-    /**
-     * <code>optional float fps = 23;</code>
+     * <code>optional float fps = 16;</code>
      */
     boolean hasFps();
     /**
-     * <code>optional float fps = 23;</code>
+     * <code>optional float fps = 16;</code>
      */
     float getFps();
 
     /**
-     * <code>optional int32 count = 24;</code>
+     * <code>optional int32 count = 17;</code>
      */
     boolean hasCount();
     /**
-     * <code>optional int32 count = 24;</code>
+     * <code>optional int32 count = 17;</code>
      */
     int getCount();
   }
@@ -248,27 +185,20 @@ public final class Sensors_Message {
     }
     private Sensors() {
       accel_ = 0F;
-      breaking_ = 0F;
+      braking_ = 0F;
       gear_ = 0;
-      steer_ = 0F;
-      meta_ = 0;
-      clutch_ = 0F;
-      focus_ = 0;
+      steerPredicted_ = 0F;
+      steerExpected_ = 0F;
       angle_ = 0F;
       cuLapTime_ = 0F;
-      damage_ = 0;
       distFromStart_ = 0F;
       totalDistFromStart_ = 0F;
       distRaced_ = 0F;
-      fuel_ = 0F;
       lastLapTime_ = 0F;
-      racePos_ = 0;
       rpm_ = 0F;
       speedX_ = 0F;
       speedY_ = 0F;
-      speedZ_ = 0F;
       distToMiddle_ = 0F;
-      posZ_ = 0F;
       fps_ = 0F;
       count_ = 0;
     }
@@ -304,7 +234,7 @@ public final class Sensors_Message {
             }
             case 21: {
               bitField0_ |= 0x00000002;
-              breaking_ = input.readFloat();
+              braking_ = input.readFloat();
               break;
             }
             case 24: {
@@ -314,106 +244,71 @@ public final class Sensors_Message {
             }
             case 37: {
               bitField0_ |= 0x00000008;
-              steer_ = input.readFloat();
+              steerPredicted_ = input.readFloat();
               break;
             }
-            case 40: {
+            case 45: {
               bitField0_ |= 0x00000010;
-              meta_ = input.readInt32();
+              steerExpected_ = input.readFloat();
               break;
             }
             case 53: {
               bitField0_ |= 0x00000020;
-              clutch_ = input.readFloat();
+              angle_ = input.readFloat();
               break;
             }
-            case 56: {
+            case 61: {
               bitField0_ |= 0x00000040;
-              focus_ = input.readInt32();
+              cuLapTime_ = input.readFloat();
               break;
             }
             case 69: {
               bitField0_ |= 0x00000080;
-              angle_ = input.readFloat();
+              distFromStart_ = input.readFloat();
               break;
             }
             case 77: {
               bitField0_ |= 0x00000100;
-              cuLapTime_ = input.readFloat();
+              totalDistFromStart_ = input.readFloat();
               break;
             }
-            case 80: {
+            case 85: {
               bitField0_ |= 0x00000200;
-              damage_ = input.readInt32();
+              distRaced_ = input.readFloat();
               break;
             }
             case 93: {
               bitField0_ |= 0x00000400;
-              distFromStart_ = input.readFloat();
+              lastLapTime_ = input.readFloat();
               break;
             }
             case 101: {
               bitField0_ |= 0x00000800;
-              totalDistFromStart_ = input.readFloat();
+              rpm_ = input.readFloat();
               break;
             }
             case 109: {
               bitField0_ |= 0x00001000;
-              distRaced_ = input.readFloat();
+              speedX_ = input.readFloat();
               break;
             }
             case 117: {
               bitField0_ |= 0x00002000;
-              fuel_ = input.readFloat();
+              speedY_ = input.readFloat();
               break;
             }
             case 125: {
               bitField0_ |= 0x00004000;
-              lastLapTime_ = input.readFloat();
-              break;
-            }
-            case 128: {
-              bitField0_ |= 0x00008000;
-              racePos_ = input.readInt32();
-              break;
-            }
-            case 141: {
-              bitField0_ |= 0x00010000;
-              rpm_ = input.readFloat();
-              break;
-            }
-            case 149: {
-              bitField0_ |= 0x00020000;
-              speedX_ = input.readFloat();
-              break;
-            }
-            case 157: {
-              bitField0_ |= 0x00040000;
-              speedY_ = input.readFloat();
-              break;
-            }
-            case 165: {
-              bitField0_ |= 0x00080000;
-              speedZ_ = input.readFloat();
-              break;
-            }
-            case 173: {
-              bitField0_ |= 0x00100000;
               distToMiddle_ = input.readFloat();
               break;
             }
-            case 181: {
-              bitField0_ |= 0x00200000;
-              posZ_ = input.readFloat();
-              break;
-            }
-            case 189: {
-              bitField0_ |= 0x00400000;
+            case 133: {
+              bitField0_ |= 0x00008000;
               fps_ = input.readFloat();
               break;
             }
-            case 192: {
-              bitField0_ |= 0x00800000;
+            case 136: {
+              bitField0_ |= 0x00010000;
               count_ = input.readInt32();
               break;
             }
@@ -465,19 +360,19 @@ public final class Sensors_Message {
       return accel_;
     }
 
-    public static final int BREAKING_FIELD_NUMBER = 2;
-    private float breaking_;
+    public static final int BRAKING_FIELD_NUMBER = 2;
+    private float braking_;
     /**
-     * <code>optional float breaking = 2;</code>
+     * <code>optional float braking = 2;</code>
      */
-    public boolean hasBreaking() {
+    public boolean hasBraking() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional float breaking = 2;</code>
+     * <code>optional float braking = 2;</code>
      */
-    public float getBreaking() {
-      return breaking_;
+    public float getBraking() {
+      return braking_;
     }
 
     public static final int GEAR_FIELD_NUMBER = 3;
@@ -495,316 +390,211 @@ public final class Sensors_Message {
       return gear_;
     }
 
-    public static final int STEER_FIELD_NUMBER = 4;
-    private float steer_;
+    public static final int STEERPREDICTED_FIELD_NUMBER = 4;
+    private float steerPredicted_;
     /**
-     * <code>optional float steer = 4;</code>
+     * <code>optional float steerPredicted = 4;</code>
      */
-    public boolean hasSteer() {
+    public boolean hasSteerPredicted() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional float steer = 4;</code>
+     * <code>optional float steerPredicted = 4;</code>
      */
-    public float getSteer() {
-      return steer_;
+    public float getSteerPredicted() {
+      return steerPredicted_;
     }
 
-    public static final int META_FIELD_NUMBER = 5;
-    private int meta_;
+    public static final int STEEREXPECTED_FIELD_NUMBER = 5;
+    private float steerExpected_;
     /**
-     * <code>optional int32 meta = 5;</code>
+     * <code>optional float steerExpected = 5;</code>
      */
-    public boolean hasMeta() {
+    public boolean hasSteerExpected() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional int32 meta = 5;</code>
+     * <code>optional float steerExpected = 5;</code>
      */
-    public int getMeta() {
-      return meta_;
+    public float getSteerExpected() {
+      return steerExpected_;
     }
 
-    public static final int CLUTCH_FIELD_NUMBER = 6;
-    private float clutch_;
+    public static final int ANGLE_FIELD_NUMBER = 6;
+    private float angle_;
     /**
-     * <code>optional float clutch = 6;</code>
+     * <code>optional float angle = 6;</code>
      */
-    public boolean hasClutch() {
+    public boolean hasAngle() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional float clutch = 6;</code>
-     */
-    public float getClutch() {
-      return clutch_;
-    }
-
-    public static final int FOCUS_FIELD_NUMBER = 7;
-    private int focus_;
-    /**
-     * <code>optional int32 focus = 7;</code>
-     */
-    public boolean hasFocus() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    /**
-     * <code>optional int32 focus = 7;</code>
-     */
-    public int getFocus() {
-      return focus_;
-    }
-
-    public static final int ANGLE_FIELD_NUMBER = 8;
-    private float angle_;
-    /**
-     * <code>optional float angle = 8;</code>
-     */
-    public boolean hasAngle() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
-    }
-    /**
-     * <code>optional float angle = 8;</code>
+     * <code>optional float angle = 6;</code>
      */
     public float getAngle() {
       return angle_;
     }
 
-    public static final int CULAPTIME_FIELD_NUMBER = 9;
+    public static final int CULAPTIME_FIELD_NUMBER = 7;
     private float cuLapTime_;
     /**
-     * <code>optional float cuLapTime = 9;</code>
+     * <code>optional float cuLapTime = 7;</code>
      */
     public boolean hasCuLapTime() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional float cuLapTime = 9;</code>
+     * <code>optional float cuLapTime = 7;</code>
      */
     public float getCuLapTime() {
       return cuLapTime_;
     }
 
-    public static final int DAMAGE_FIELD_NUMBER = 10;
-    private int damage_;
-    /**
-     * <code>optional int32 damage = 10;</code>
-     */
-    public boolean hasDamage() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
-    }
-    /**
-     * <code>optional int32 damage = 10;</code>
-     */
-    public int getDamage() {
-      return damage_;
-    }
-
-    public static final int DISTFROMSTART_FIELD_NUMBER = 11;
+    public static final int DISTFROMSTART_FIELD_NUMBER = 8;
     private float distFromStart_;
     /**
-     * <code>optional float distFromStart = 11;</code>
+     * <code>optional float distFromStart = 8;</code>
      */
     public boolean hasDistFromStart() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional float distFromStart = 11;</code>
+     * <code>optional float distFromStart = 8;</code>
      */
     public float getDistFromStart() {
       return distFromStart_;
     }
 
-    public static final int TOTALDISTFROMSTART_FIELD_NUMBER = 12;
+    public static final int TOTALDISTFROMSTART_FIELD_NUMBER = 9;
     private float totalDistFromStart_;
     /**
-     * <code>optional float totalDistFromStart = 12;</code>
+     * <code>optional float totalDistFromStart = 9;</code>
      */
     public boolean hasTotalDistFromStart() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
-     * <code>optional float totalDistFromStart = 12;</code>
+     * <code>optional float totalDistFromStart = 9;</code>
      */
     public float getTotalDistFromStart() {
       return totalDistFromStart_;
     }
 
-    public static final int DISTRACED_FIELD_NUMBER = 13;
+    public static final int DISTRACED_FIELD_NUMBER = 10;
     private float distRaced_;
     /**
-     * <code>optional float distRaced = 13;</code>
+     * <code>optional float distRaced = 10;</code>
      */
     public boolean hasDistRaced() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>optional float distRaced = 13;</code>
+     * <code>optional float distRaced = 10;</code>
      */
     public float getDistRaced() {
       return distRaced_;
     }
 
-    public static final int FUEL_FIELD_NUMBER = 14;
-    private float fuel_;
-    /**
-     * <code>optional float fuel = 14;</code>
-     */
-    public boolean hasFuel() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
-    }
-    /**
-     * <code>optional float fuel = 14;</code>
-     */
-    public float getFuel() {
-      return fuel_;
-    }
-
-    public static final int LASTLAPTIME_FIELD_NUMBER = 15;
+    public static final int LASTLAPTIME_FIELD_NUMBER = 11;
     private float lastLapTime_;
     /**
-     * <code>optional float lastLapTime = 15;</code>
+     * <code>optional float lastLapTime = 11;</code>
      */
     public boolean hasLastLapTime() {
-      return ((bitField0_ & 0x00004000) == 0x00004000);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>optional float lastLapTime = 15;</code>
+     * <code>optional float lastLapTime = 11;</code>
      */
     public float getLastLapTime() {
       return lastLapTime_;
     }
 
-    public static final int RACEPOS_FIELD_NUMBER = 16;
-    private int racePos_;
-    /**
-     * <code>optional int32 racePos = 16;</code>
-     */
-    public boolean hasRacePos() {
-      return ((bitField0_ & 0x00008000) == 0x00008000);
-    }
-    /**
-     * <code>optional int32 racePos = 16;</code>
-     */
-    public int getRacePos() {
-      return racePos_;
-    }
-
-    public static final int RPM_FIELD_NUMBER = 17;
+    public static final int RPM_FIELD_NUMBER = 12;
     private float rpm_;
     /**
-     * <code>optional float rpm = 17;</code>
+     * <code>optional float rpm = 12;</code>
      */
     public boolean hasRpm() {
-      return ((bitField0_ & 0x00010000) == 0x00010000);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>optional float rpm = 17;</code>
+     * <code>optional float rpm = 12;</code>
      */
     public float getRpm() {
       return rpm_;
     }
 
-    public static final int SPEEDX_FIELD_NUMBER = 18;
+    public static final int SPEEDX_FIELD_NUMBER = 13;
     private float speedX_;
     /**
-     * <code>optional float speedX = 18;</code>
+     * <code>optional float speedX = 13;</code>
      */
     public boolean hasSpeedX() {
-      return ((bitField0_ & 0x00020000) == 0x00020000);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     /**
-     * <code>optional float speedX = 18;</code>
+     * <code>optional float speedX = 13;</code>
      */
     public float getSpeedX() {
       return speedX_;
     }
 
-    public static final int SPEEDY_FIELD_NUMBER = 19;
+    public static final int SPEEDY_FIELD_NUMBER = 14;
     private float speedY_;
     /**
-     * <code>optional float speedY = 19;</code>
+     * <code>optional float speedY = 14;</code>
      */
     public boolean hasSpeedY() {
-      return ((bitField0_ & 0x00040000) == 0x00040000);
+      return ((bitField0_ & 0x00002000) == 0x00002000);
     }
     /**
-     * <code>optional float speedY = 19;</code>
+     * <code>optional float speedY = 14;</code>
      */
     public float getSpeedY() {
       return speedY_;
     }
 
-    public static final int SPEEDZ_FIELD_NUMBER = 20;
-    private float speedZ_;
-    /**
-     * <code>optional float speedZ = 20;</code>
-     */
-    public boolean hasSpeedZ() {
-      return ((bitField0_ & 0x00080000) == 0x00080000);
-    }
-    /**
-     * <code>optional float speedZ = 20;</code>
-     */
-    public float getSpeedZ() {
-      return speedZ_;
-    }
-
-    public static final int DISTTOMIDDLE_FIELD_NUMBER = 21;
+    public static final int DISTTOMIDDLE_FIELD_NUMBER = 15;
     private float distToMiddle_;
     /**
-     * <code>optional float distToMiddle = 21;</code>
+     * <code>optional float distToMiddle = 15;</code>
      */
     public boolean hasDistToMiddle() {
-      return ((bitField0_ & 0x00100000) == 0x00100000);
+      return ((bitField0_ & 0x00004000) == 0x00004000);
     }
     /**
-     * <code>optional float distToMiddle = 21;</code>
+     * <code>optional float distToMiddle = 15;</code>
      */
     public float getDistToMiddle() {
       return distToMiddle_;
     }
 
-    public static final int POSZ_FIELD_NUMBER = 22;
-    private float posZ_;
-    /**
-     * <code>optional float posZ = 22;</code>
-     */
-    public boolean hasPosZ() {
-      return ((bitField0_ & 0x00200000) == 0x00200000);
-    }
-    /**
-     * <code>optional float posZ = 22;</code>
-     */
-    public float getPosZ() {
-      return posZ_;
-    }
-
-    public static final int FPS_FIELD_NUMBER = 23;
+    public static final int FPS_FIELD_NUMBER = 16;
     private float fps_;
     /**
-     * <code>optional float fps = 23;</code>
+     * <code>optional float fps = 16;</code>
      */
     public boolean hasFps() {
-      return ((bitField0_ & 0x00400000) == 0x00400000);
+      return ((bitField0_ & 0x00008000) == 0x00008000);
     }
     /**
-     * <code>optional float fps = 23;</code>
+     * <code>optional float fps = 16;</code>
      */
     public float getFps() {
       return fps_;
     }
 
-    public static final int COUNT_FIELD_NUMBER = 24;
+    public static final int COUNT_FIELD_NUMBER = 17;
     private int count_;
     /**
-     * <code>optional int32 count = 24;</code>
+     * <code>optional int32 count = 17;</code>
      */
     public boolean hasCount() {
-      return ((bitField0_ & 0x00800000) == 0x00800000);
+      return ((bitField0_ & 0x00010000) == 0x00010000);
     }
     /**
-     * <code>optional int32 count = 24;</code>
+     * <code>optional int32 count = 17;</code>
      */
     public int getCount() {
       return count_;
@@ -828,73 +618,52 @@ public final class Sensors_Message {
         output.writeFloat(1, accel_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeFloat(2, breaking_);
+        output.writeFloat(2, braking_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, gear_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeFloat(4, steer_);
+        output.writeFloat(4, steerPredicted_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, meta_);
+        output.writeFloat(5, steerExpected_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeFloat(6, clutch_);
+        output.writeFloat(6, angle_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, focus_);
+        output.writeFloat(7, cuLapTime_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeFloat(8, angle_);
+        output.writeFloat(8, distFromStart_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeFloat(9, cuLapTime_);
+        output.writeFloat(9, totalDistFromStart_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt32(10, damage_);
+        output.writeFloat(10, distRaced_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeFloat(11, distFromStart_);
+        output.writeFloat(11, lastLapTime_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeFloat(12, totalDistFromStart_);
+        output.writeFloat(12, rpm_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeFloat(13, distRaced_);
+        output.writeFloat(13, speedX_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeFloat(14, fuel_);
+        output.writeFloat(14, speedY_);
       }
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
-        output.writeFloat(15, lastLapTime_);
+        output.writeFloat(15, distToMiddle_);
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
-        output.writeInt32(16, racePos_);
+        output.writeFloat(16, fps_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
-        output.writeFloat(17, rpm_);
-      }
-      if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        output.writeFloat(18, speedX_);
-      }
-      if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        output.writeFloat(19, speedY_);
-      }
-      if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        output.writeFloat(20, speedZ_);
-      }
-      if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        output.writeFloat(21, distToMiddle_);
-      }
-      if (((bitField0_ & 0x00200000) == 0x00200000)) {
-        output.writeFloat(22, posZ_);
-      }
-      if (((bitField0_ & 0x00400000) == 0x00400000)) {
-        output.writeFloat(23, fps_);
-      }
-      if (((bitField0_ & 0x00800000) == 0x00800000)) {
-        output.writeInt32(24, count_);
+        output.writeInt32(17, count_);
       }
       unknownFields.writeTo(output);
     }
@@ -911,7 +680,7 @@ public final class Sensors_Message {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, breaking_);
+          .computeFloatSize(2, braking_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
@@ -919,87 +688,59 @@ public final class Sensors_Message {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, steer_);
+          .computeFloatSize(4, steerPredicted_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, meta_);
+          .computeFloatSize(5, steerExpected_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(6, clutch_);
+          .computeFloatSize(6, angle_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, focus_);
+          .computeFloatSize(7, cuLapTime_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(8, angle_);
+          .computeFloatSize(8, distFromStart_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(9, cuLapTime_);
+          .computeFloatSize(9, totalDistFromStart_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, damage_);
+          .computeFloatSize(10, distRaced_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(11, distFromStart_);
+          .computeFloatSize(11, lastLapTime_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(12, totalDistFromStart_);
+          .computeFloatSize(12, rpm_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(13, distRaced_);
+          .computeFloatSize(13, speedX_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(14, fuel_);
+          .computeFloatSize(14, speedY_);
       }
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(15, lastLapTime_);
+          .computeFloatSize(15, distToMiddle_);
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(16, racePos_);
+          .computeFloatSize(16, fps_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(17, rpm_);
-      }
-      if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(18, speedX_);
-      }
-      if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(19, speedY_);
-      }
-      if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(20, speedZ_);
-      }
-      if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(21, distToMiddle_);
-      }
-      if (((bitField0_ & 0x00200000) == 0x00200000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(22, posZ_);
-      }
-      if (((bitField0_ & 0x00400000) == 0x00400000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(23, fps_);
-      }
-      if (((bitField0_ & 0x00800000) == 0x00800000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(24, count_);
+          .computeInt32Size(17, count_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1024,41 +765,31 @@ public final class Sensors_Message {
             == java.lang.Float.floatToIntBits(
                 other.getAccel()));
       }
-      result = result && (hasBreaking() == other.hasBreaking());
-      if (hasBreaking()) {
+      result = result && (hasBraking() == other.hasBraking());
+      if (hasBraking()) {
         result = result && (
-            java.lang.Float.floatToIntBits(getBreaking())
+            java.lang.Float.floatToIntBits(getBraking())
             == java.lang.Float.floatToIntBits(
-                other.getBreaking()));
+                other.getBraking()));
       }
       result = result && (hasGear() == other.hasGear());
       if (hasGear()) {
         result = result && (getGear()
             == other.getGear());
       }
-      result = result && (hasSteer() == other.hasSteer());
-      if (hasSteer()) {
+      result = result && (hasSteerPredicted() == other.hasSteerPredicted());
+      if (hasSteerPredicted()) {
         result = result && (
-            java.lang.Float.floatToIntBits(getSteer())
+            java.lang.Float.floatToIntBits(getSteerPredicted())
             == java.lang.Float.floatToIntBits(
-                other.getSteer()));
+                other.getSteerPredicted()));
       }
-      result = result && (hasMeta() == other.hasMeta());
-      if (hasMeta()) {
-        result = result && (getMeta()
-            == other.getMeta());
-      }
-      result = result && (hasClutch() == other.hasClutch());
-      if (hasClutch()) {
+      result = result && (hasSteerExpected() == other.hasSteerExpected());
+      if (hasSteerExpected()) {
         result = result && (
-            java.lang.Float.floatToIntBits(getClutch())
+            java.lang.Float.floatToIntBits(getSteerExpected())
             == java.lang.Float.floatToIntBits(
-                other.getClutch()));
-      }
-      result = result && (hasFocus() == other.hasFocus());
-      if (hasFocus()) {
-        result = result && (getFocus()
-            == other.getFocus());
+                other.getSteerExpected()));
       }
       result = result && (hasAngle() == other.hasAngle());
       if (hasAngle()) {
@@ -1073,11 +804,6 @@ public final class Sensors_Message {
             java.lang.Float.floatToIntBits(getCuLapTime())
             == java.lang.Float.floatToIntBits(
                 other.getCuLapTime()));
-      }
-      result = result && (hasDamage() == other.hasDamage());
-      if (hasDamage()) {
-        result = result && (getDamage()
-            == other.getDamage());
       }
       result = result && (hasDistFromStart() == other.hasDistFromStart());
       if (hasDistFromStart()) {
@@ -1100,24 +826,12 @@ public final class Sensors_Message {
             == java.lang.Float.floatToIntBits(
                 other.getDistRaced()));
       }
-      result = result && (hasFuel() == other.hasFuel());
-      if (hasFuel()) {
-        result = result && (
-            java.lang.Float.floatToIntBits(getFuel())
-            == java.lang.Float.floatToIntBits(
-                other.getFuel()));
-      }
       result = result && (hasLastLapTime() == other.hasLastLapTime());
       if (hasLastLapTime()) {
         result = result && (
             java.lang.Float.floatToIntBits(getLastLapTime())
             == java.lang.Float.floatToIntBits(
                 other.getLastLapTime()));
-      }
-      result = result && (hasRacePos() == other.hasRacePos());
-      if (hasRacePos()) {
-        result = result && (getRacePos()
-            == other.getRacePos());
       }
       result = result && (hasRpm() == other.hasRpm());
       if (hasRpm()) {
@@ -1140,26 +854,12 @@ public final class Sensors_Message {
             == java.lang.Float.floatToIntBits(
                 other.getSpeedY()));
       }
-      result = result && (hasSpeedZ() == other.hasSpeedZ());
-      if (hasSpeedZ()) {
-        result = result && (
-            java.lang.Float.floatToIntBits(getSpeedZ())
-            == java.lang.Float.floatToIntBits(
-                other.getSpeedZ()));
-      }
       result = result && (hasDistToMiddle() == other.hasDistToMiddle());
       if (hasDistToMiddle()) {
         result = result && (
             java.lang.Float.floatToIntBits(getDistToMiddle())
             == java.lang.Float.floatToIntBits(
                 other.getDistToMiddle()));
-      }
-      result = result && (hasPosZ() == other.hasPosZ());
-      if (hasPosZ()) {
-        result = result && (
-            java.lang.Float.floatToIntBits(getPosZ())
-            == java.lang.Float.floatToIntBits(
-                other.getPosZ()));
       }
       result = result && (hasFps() == other.hasFps());
       if (hasFps()) {
@@ -1189,32 +889,24 @@ public final class Sensors_Message {
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getAccel());
       }
-      if (hasBreaking()) {
-        hash = (37 * hash) + BREAKING_FIELD_NUMBER;
+      if (hasBraking()) {
+        hash = (37 * hash) + BRAKING_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getBreaking());
+            getBraking());
       }
       if (hasGear()) {
         hash = (37 * hash) + GEAR_FIELD_NUMBER;
         hash = (53 * hash) + getGear();
       }
-      if (hasSteer()) {
-        hash = (37 * hash) + STEER_FIELD_NUMBER;
+      if (hasSteerPredicted()) {
+        hash = (37 * hash) + STEERPREDICTED_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getSteer());
+            getSteerPredicted());
       }
-      if (hasMeta()) {
-        hash = (37 * hash) + META_FIELD_NUMBER;
-        hash = (53 * hash) + getMeta();
-      }
-      if (hasClutch()) {
-        hash = (37 * hash) + CLUTCH_FIELD_NUMBER;
+      if (hasSteerExpected()) {
+        hash = (37 * hash) + STEEREXPECTED_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getClutch());
-      }
-      if (hasFocus()) {
-        hash = (37 * hash) + FOCUS_FIELD_NUMBER;
-        hash = (53 * hash) + getFocus();
+            getSteerExpected());
       }
       if (hasAngle()) {
         hash = (37 * hash) + ANGLE_FIELD_NUMBER;
@@ -1225,10 +917,6 @@ public final class Sensors_Message {
         hash = (37 * hash) + CULAPTIME_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getCuLapTime());
-      }
-      if (hasDamage()) {
-        hash = (37 * hash) + DAMAGE_FIELD_NUMBER;
-        hash = (53 * hash) + getDamage();
       }
       if (hasDistFromStart()) {
         hash = (37 * hash) + DISTFROMSTART_FIELD_NUMBER;
@@ -1245,19 +933,10 @@ public final class Sensors_Message {
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getDistRaced());
       }
-      if (hasFuel()) {
-        hash = (37 * hash) + FUEL_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getFuel());
-      }
       if (hasLastLapTime()) {
         hash = (37 * hash) + LASTLAPTIME_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getLastLapTime());
-      }
-      if (hasRacePos()) {
-        hash = (37 * hash) + RACEPOS_FIELD_NUMBER;
-        hash = (53 * hash) + getRacePos();
       }
       if (hasRpm()) {
         hash = (37 * hash) + RPM_FIELD_NUMBER;
@@ -1274,20 +953,10 @@ public final class Sensors_Message {
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getSpeedY());
       }
-      if (hasSpeedZ()) {
-        hash = (37 * hash) + SPEEDZ_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getSpeedZ());
-      }
       if (hasDistToMiddle()) {
         hash = (37 * hash) + DISTTOMIDDLE_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getDistToMiddle());
-      }
-      if (hasPosZ()) {
-        hash = (37 * hash) + POSZ_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getPosZ());
       }
       if (hasFps()) {
         hash = (37 * hash) + FPS_FIELD_NUMBER;
@@ -1433,52 +1102,38 @@ public final class Sensors_Message {
         super.clear();
         accel_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000001);
-        breaking_ = 0F;
+        braking_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000002);
         gear_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        steer_ = 0F;
+        steerPredicted_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
-        meta_ = 0;
+        steerExpected_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000010);
-        clutch_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000020);
-        focus_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000040);
         angle_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000020);
         cuLapTime_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000100);
-        damage_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000040);
         distFromStart_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000080);
         totalDistFromStart_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000100);
         distRaced_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00001000);
-        fuel_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00000200);
         lastLapTime_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00004000);
-        racePos_ = 0;
-        bitField0_ = (bitField0_ & ~0x00008000);
+        bitField0_ = (bitField0_ & ~0x00000400);
         rpm_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         speedX_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         speedY_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00040000);
-        speedZ_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00002000);
         distToMiddle_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00100000);
-        posZ_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00200000);
+        bitField0_ = (bitField0_ & ~0x00004000);
         fps_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00400000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         count_ = 0;
-        bitField0_ = (bitField0_ & ~0x00800000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         return this;
       }
 
@@ -1514,7 +1169,7 @@ public final class Sensors_Message {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.breaking_ = breaking_;
+        result.braking_ = braking_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -1522,85 +1177,57 @@ public final class Sensors_Message {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.steer_ = steer_;
+        result.steerPredicted_ = steerPredicted_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.meta_ = meta_;
+        result.steerExpected_ = steerExpected_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.clutch_ = clutch_;
+        result.angle_ = angle_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.focus_ = focus_;
+        result.cuLapTime_ = cuLapTime_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.angle_ = angle_;
+        result.distFromStart_ = distFromStart_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.cuLapTime_ = cuLapTime_;
+        result.totalDistFromStart_ = totalDistFromStart_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.damage_ = damage_;
+        result.distRaced_ = distRaced_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000400;
         }
-        result.distFromStart_ = distFromStart_;
+        result.lastLapTime_ = lastLapTime_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
         }
-        result.totalDistFromStart_ = totalDistFromStart_;
+        result.rpm_ = rpm_;
         if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
           to_bitField0_ |= 0x00001000;
         }
-        result.distRaced_ = distRaced_;
+        result.speedX_ = speedX_;
         if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
           to_bitField0_ |= 0x00002000;
         }
-        result.fuel_ = fuel_;
+        result.speedY_ = speedY_;
         if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
           to_bitField0_ |= 0x00004000;
         }
-        result.lastLapTime_ = lastLapTime_;
+        result.distToMiddle_ = distToMiddle_;
         if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
           to_bitField0_ |= 0x00008000;
         }
-        result.racePos_ = racePos_;
+        result.fps_ = fps_;
         if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
           to_bitField0_ |= 0x00010000;
-        }
-        result.rpm_ = rpm_;
-        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
-          to_bitField0_ |= 0x00020000;
-        }
-        result.speedX_ = speedX_;
-        if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
-          to_bitField0_ |= 0x00040000;
-        }
-        result.speedY_ = speedY_;
-        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
-          to_bitField0_ |= 0x00080000;
-        }
-        result.speedZ_ = speedZ_;
-        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
-          to_bitField0_ |= 0x00100000;
-        }
-        result.distToMiddle_ = distToMiddle_;
-        if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
-          to_bitField0_ |= 0x00200000;
-        }
-        result.posZ_ = posZ_;
-        if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
-          to_bitField0_ |= 0x00400000;
-        }
-        result.fps_ = fps_;
-        if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
-          to_bitField0_ |= 0x00800000;
         }
         result.count_ = count_;
         result.bitField0_ = to_bitField0_;
@@ -1655,32 +1282,23 @@ public final class Sensors_Message {
         if (other.hasAccel()) {
           setAccel(other.getAccel());
         }
-        if (other.hasBreaking()) {
-          setBreaking(other.getBreaking());
+        if (other.hasBraking()) {
+          setBraking(other.getBraking());
         }
         if (other.hasGear()) {
           setGear(other.getGear());
         }
-        if (other.hasSteer()) {
-          setSteer(other.getSteer());
+        if (other.hasSteerPredicted()) {
+          setSteerPredicted(other.getSteerPredicted());
         }
-        if (other.hasMeta()) {
-          setMeta(other.getMeta());
-        }
-        if (other.hasClutch()) {
-          setClutch(other.getClutch());
-        }
-        if (other.hasFocus()) {
-          setFocus(other.getFocus());
+        if (other.hasSteerExpected()) {
+          setSteerExpected(other.getSteerExpected());
         }
         if (other.hasAngle()) {
           setAngle(other.getAngle());
         }
         if (other.hasCuLapTime()) {
           setCuLapTime(other.getCuLapTime());
-        }
-        if (other.hasDamage()) {
-          setDamage(other.getDamage());
         }
         if (other.hasDistFromStart()) {
           setDistFromStart(other.getDistFromStart());
@@ -1691,14 +1309,8 @@ public final class Sensors_Message {
         if (other.hasDistRaced()) {
           setDistRaced(other.getDistRaced());
         }
-        if (other.hasFuel()) {
-          setFuel(other.getFuel());
-        }
         if (other.hasLastLapTime()) {
           setLastLapTime(other.getLastLapTime());
-        }
-        if (other.hasRacePos()) {
-          setRacePos(other.getRacePos());
         }
         if (other.hasRpm()) {
           setRpm(other.getRpm());
@@ -1709,14 +1321,8 @@ public final class Sensors_Message {
         if (other.hasSpeedY()) {
           setSpeedY(other.getSpeedY());
         }
-        if (other.hasSpeedZ()) {
-          setSpeedZ(other.getSpeedZ());
-        }
         if (other.hasDistToMiddle()) {
           setDistToMiddle(other.getDistToMiddle());
-        }
-        if (other.hasPosZ()) {
-          setPosZ(other.getPosZ());
         }
         if (other.hasFps()) {
           setFps(other.getFps());
@@ -1786,34 +1392,34 @@ public final class Sensors_Message {
         return this;
       }
 
-      private float breaking_ ;
+      private float braking_ ;
       /**
-       * <code>optional float breaking = 2;</code>
+       * <code>optional float braking = 2;</code>
        */
-      public boolean hasBreaking() {
+      public boolean hasBraking() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional float breaking = 2;</code>
+       * <code>optional float braking = 2;</code>
        */
-      public float getBreaking() {
-        return breaking_;
+      public float getBraking() {
+        return braking_;
       }
       /**
-       * <code>optional float breaking = 2;</code>
+       * <code>optional float braking = 2;</code>
        */
-      public Builder setBreaking(float value) {
+      public Builder setBraking(float value) {
         bitField0_ |= 0x00000002;
-        breaking_ = value;
+        braking_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float breaking = 2;</code>
+       * <code>optional float braking = 2;</code>
        */
-      public Builder clearBreaking() {
+      public Builder clearBraking() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        breaking_ = 0F;
+        braking_ = 0F;
         onChanged();
         return this;
       }
@@ -1850,161 +1456,97 @@ public final class Sensors_Message {
         return this;
       }
 
-      private float steer_ ;
+      private float steerPredicted_ ;
       /**
-       * <code>optional float steer = 4;</code>
+       * <code>optional float steerPredicted = 4;</code>
        */
-      public boolean hasSteer() {
+      public boolean hasSteerPredicted() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional float steer = 4;</code>
+       * <code>optional float steerPredicted = 4;</code>
        */
-      public float getSteer() {
-        return steer_;
+      public float getSteerPredicted() {
+        return steerPredicted_;
       }
       /**
-       * <code>optional float steer = 4;</code>
+       * <code>optional float steerPredicted = 4;</code>
        */
-      public Builder setSteer(float value) {
+      public Builder setSteerPredicted(float value) {
         bitField0_ |= 0x00000008;
-        steer_ = value;
+        steerPredicted_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float steer = 4;</code>
+       * <code>optional float steerPredicted = 4;</code>
        */
-      public Builder clearSteer() {
+      public Builder clearSteerPredicted() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        steer_ = 0F;
+        steerPredicted_ = 0F;
         onChanged();
         return this;
       }
 
-      private int meta_ ;
+      private float steerExpected_ ;
       /**
-       * <code>optional int32 meta = 5;</code>
+       * <code>optional float steerExpected = 5;</code>
        */
-      public boolean hasMeta() {
+      public boolean hasSteerExpected() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional int32 meta = 5;</code>
+       * <code>optional float steerExpected = 5;</code>
        */
-      public int getMeta() {
-        return meta_;
+      public float getSteerExpected() {
+        return steerExpected_;
       }
       /**
-       * <code>optional int32 meta = 5;</code>
+       * <code>optional float steerExpected = 5;</code>
        */
-      public Builder setMeta(int value) {
+      public Builder setSteerExpected(float value) {
         bitField0_ |= 0x00000010;
-        meta_ = value;
+        steerExpected_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 meta = 5;</code>
+       * <code>optional float steerExpected = 5;</code>
        */
-      public Builder clearMeta() {
+      public Builder clearSteerExpected() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        meta_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private float clutch_ ;
-      /**
-       * <code>optional float clutch = 6;</code>
-       */
-      public boolean hasClutch() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
-      }
-      /**
-       * <code>optional float clutch = 6;</code>
-       */
-      public float getClutch() {
-        return clutch_;
-      }
-      /**
-       * <code>optional float clutch = 6;</code>
-       */
-      public Builder setClutch(float value) {
-        bitField0_ |= 0x00000020;
-        clutch_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float clutch = 6;</code>
-       */
-      public Builder clearClutch() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        clutch_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private int focus_ ;
-      /**
-       * <code>optional int32 focus = 7;</code>
-       */
-      public boolean hasFocus() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
-      }
-      /**
-       * <code>optional int32 focus = 7;</code>
-       */
-      public int getFocus() {
-        return focus_;
-      }
-      /**
-       * <code>optional int32 focus = 7;</code>
-       */
-      public Builder setFocus(int value) {
-        bitField0_ |= 0x00000040;
-        focus_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 focus = 7;</code>
-       */
-      public Builder clearFocus() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        focus_ = 0;
+        steerExpected_ = 0F;
         onChanged();
         return this;
       }
 
       private float angle_ ;
       /**
-       * <code>optional float angle = 8;</code>
+       * <code>optional float angle = 6;</code>
        */
       public boolean hasAngle() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional float angle = 8;</code>
+       * <code>optional float angle = 6;</code>
        */
       public float getAngle() {
         return angle_;
       }
       /**
-       * <code>optional float angle = 8;</code>
+       * <code>optional float angle = 6;</code>
        */
       public Builder setAngle(float value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000020;
         angle_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float angle = 8;</code>
+       * <code>optional float angle = 6;</code>
        */
       public Builder clearAngle() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000020);
         angle_ = 0F;
         onChanged();
         return this;
@@ -2012,95 +1554,63 @@ public final class Sensors_Message {
 
       private float cuLapTime_ ;
       /**
-       * <code>optional float cuLapTime = 9;</code>
+       * <code>optional float cuLapTime = 7;</code>
        */
       public boolean hasCuLapTime() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional float cuLapTime = 9;</code>
+       * <code>optional float cuLapTime = 7;</code>
        */
       public float getCuLapTime() {
         return cuLapTime_;
       }
       /**
-       * <code>optional float cuLapTime = 9;</code>
+       * <code>optional float cuLapTime = 7;</code>
        */
       public Builder setCuLapTime(float value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000040;
         cuLapTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float cuLapTime = 9;</code>
+       * <code>optional float cuLapTime = 7;</code>
        */
       public Builder clearCuLapTime() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000040);
         cuLapTime_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private int damage_ ;
-      /**
-       * <code>optional int32 damage = 10;</code>
-       */
-      public boolean hasDamage() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
-      }
-      /**
-       * <code>optional int32 damage = 10;</code>
-       */
-      public int getDamage() {
-        return damage_;
-      }
-      /**
-       * <code>optional int32 damage = 10;</code>
-       */
-      public Builder setDamage(int value) {
-        bitField0_ |= 0x00000200;
-        damage_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 damage = 10;</code>
-       */
-      public Builder clearDamage() {
-        bitField0_ = (bitField0_ & ~0x00000200);
-        damage_ = 0;
         onChanged();
         return this;
       }
 
       private float distFromStart_ ;
       /**
-       * <code>optional float distFromStart = 11;</code>
+       * <code>optional float distFromStart = 8;</code>
        */
       public boolean hasDistFromStart() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional float distFromStart = 11;</code>
+       * <code>optional float distFromStart = 8;</code>
        */
       public float getDistFromStart() {
         return distFromStart_;
       }
       /**
-       * <code>optional float distFromStart = 11;</code>
+       * <code>optional float distFromStart = 8;</code>
        */
       public Builder setDistFromStart(float value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000080;
         distFromStart_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float distFromStart = 11;</code>
+       * <code>optional float distFromStart = 8;</code>
        */
       public Builder clearDistFromStart() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000080);
         distFromStart_ = 0F;
         onChanged();
         return this;
@@ -2108,31 +1618,31 @@ public final class Sensors_Message {
 
       private float totalDistFromStart_ ;
       /**
-       * <code>optional float totalDistFromStart = 12;</code>
+       * <code>optional float totalDistFromStart = 9;</code>
        */
       public boolean hasTotalDistFromStart() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>optional float totalDistFromStart = 12;</code>
+       * <code>optional float totalDistFromStart = 9;</code>
        */
       public float getTotalDistFromStart() {
         return totalDistFromStart_;
       }
       /**
-       * <code>optional float totalDistFromStart = 12;</code>
+       * <code>optional float totalDistFromStart = 9;</code>
        */
       public Builder setTotalDistFromStart(float value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00000100;
         totalDistFromStart_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float totalDistFromStart = 12;</code>
+       * <code>optional float totalDistFromStart = 9;</code>
        */
       public Builder clearTotalDistFromStart() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000100);
         totalDistFromStart_ = 0F;
         onChanged();
         return this;
@@ -2140,159 +1650,95 @@ public final class Sensors_Message {
 
       private float distRaced_ ;
       /**
-       * <code>optional float distRaced = 13;</code>
+       * <code>optional float distRaced = 10;</code>
        */
       public boolean hasDistRaced() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       /**
-       * <code>optional float distRaced = 13;</code>
+       * <code>optional float distRaced = 10;</code>
        */
       public float getDistRaced() {
         return distRaced_;
       }
       /**
-       * <code>optional float distRaced = 13;</code>
+       * <code>optional float distRaced = 10;</code>
        */
       public Builder setDistRaced(float value) {
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00000200;
         distRaced_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float distRaced = 13;</code>
+       * <code>optional float distRaced = 10;</code>
        */
       public Builder clearDistRaced() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000200);
         distRaced_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private float fuel_ ;
-      /**
-       * <code>optional float fuel = 14;</code>
-       */
-      public boolean hasFuel() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
-      }
-      /**
-       * <code>optional float fuel = 14;</code>
-       */
-      public float getFuel() {
-        return fuel_;
-      }
-      /**
-       * <code>optional float fuel = 14;</code>
-       */
-      public Builder setFuel(float value) {
-        bitField0_ |= 0x00002000;
-        fuel_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float fuel = 14;</code>
-       */
-      public Builder clearFuel() {
-        bitField0_ = (bitField0_ & ~0x00002000);
-        fuel_ = 0F;
         onChanged();
         return this;
       }
 
       private float lastLapTime_ ;
       /**
-       * <code>optional float lastLapTime = 15;</code>
+       * <code>optional float lastLapTime = 11;</code>
        */
       public boolean hasLastLapTime() {
-        return ((bitField0_ & 0x00004000) == 0x00004000);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>optional float lastLapTime = 15;</code>
+       * <code>optional float lastLapTime = 11;</code>
        */
       public float getLastLapTime() {
         return lastLapTime_;
       }
       /**
-       * <code>optional float lastLapTime = 15;</code>
+       * <code>optional float lastLapTime = 11;</code>
        */
       public Builder setLastLapTime(float value) {
-        bitField0_ |= 0x00004000;
+        bitField0_ |= 0x00000400;
         lastLapTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float lastLapTime = 15;</code>
+       * <code>optional float lastLapTime = 11;</code>
        */
       public Builder clearLastLapTime() {
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00000400);
         lastLapTime_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private int racePos_ ;
-      /**
-       * <code>optional int32 racePos = 16;</code>
-       */
-      public boolean hasRacePos() {
-        return ((bitField0_ & 0x00008000) == 0x00008000);
-      }
-      /**
-       * <code>optional int32 racePos = 16;</code>
-       */
-      public int getRacePos() {
-        return racePos_;
-      }
-      /**
-       * <code>optional int32 racePos = 16;</code>
-       */
-      public Builder setRacePos(int value) {
-        bitField0_ |= 0x00008000;
-        racePos_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 racePos = 16;</code>
-       */
-      public Builder clearRacePos() {
-        bitField0_ = (bitField0_ & ~0x00008000);
-        racePos_ = 0;
         onChanged();
         return this;
       }
 
       private float rpm_ ;
       /**
-       * <code>optional float rpm = 17;</code>
+       * <code>optional float rpm = 12;</code>
        */
       public boolean hasRpm() {
-        return ((bitField0_ & 0x00010000) == 0x00010000);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>optional float rpm = 17;</code>
+       * <code>optional float rpm = 12;</code>
        */
       public float getRpm() {
         return rpm_;
       }
       /**
-       * <code>optional float rpm = 17;</code>
+       * <code>optional float rpm = 12;</code>
        */
       public Builder setRpm(float value) {
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00000800;
         rpm_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float rpm = 17;</code>
+       * <code>optional float rpm = 12;</code>
        */
       public Builder clearRpm() {
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         rpm_ = 0F;
         onChanged();
         return this;
@@ -2300,31 +1746,31 @@ public final class Sensors_Message {
 
       private float speedX_ ;
       /**
-       * <code>optional float speedX = 18;</code>
+       * <code>optional float speedX = 13;</code>
        */
       public boolean hasSpeedX() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       /**
-       * <code>optional float speedX = 18;</code>
+       * <code>optional float speedX = 13;</code>
        */
       public float getSpeedX() {
         return speedX_;
       }
       /**
-       * <code>optional float speedX = 18;</code>
+       * <code>optional float speedX = 13;</code>
        */
       public Builder setSpeedX(float value) {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00001000;
         speedX_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float speedX = 18;</code>
+       * <code>optional float speedX = 13;</code>
        */
       public Builder clearSpeedX() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         speedX_ = 0F;
         onChanged();
         return this;
@@ -2332,159 +1778,95 @@ public final class Sensors_Message {
 
       private float speedY_ ;
       /**
-       * <code>optional float speedY = 19;</code>
+       * <code>optional float speedY = 14;</code>
        */
       public boolean hasSpeedY() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00002000) == 0x00002000);
       }
       /**
-       * <code>optional float speedY = 19;</code>
+       * <code>optional float speedY = 14;</code>
        */
       public float getSpeedY() {
         return speedY_;
       }
       /**
-       * <code>optional float speedY = 19;</code>
+       * <code>optional float speedY = 14;</code>
        */
       public Builder setSpeedY(float value) {
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00002000;
         speedY_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float speedY = 19;</code>
+       * <code>optional float speedY = 14;</code>
        */
       public Builder clearSpeedY() {
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00002000);
         speedY_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private float speedZ_ ;
-      /**
-       * <code>optional float speedZ = 20;</code>
-       */
-      public boolean hasSpeedZ() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
-      }
-      /**
-       * <code>optional float speedZ = 20;</code>
-       */
-      public float getSpeedZ() {
-        return speedZ_;
-      }
-      /**
-       * <code>optional float speedZ = 20;</code>
-       */
-      public Builder setSpeedZ(float value) {
-        bitField0_ |= 0x00080000;
-        speedZ_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float speedZ = 20;</code>
-       */
-      public Builder clearSpeedZ() {
-        bitField0_ = (bitField0_ & ~0x00080000);
-        speedZ_ = 0F;
         onChanged();
         return this;
       }
 
       private float distToMiddle_ ;
       /**
-       * <code>optional float distToMiddle = 21;</code>
+       * <code>optional float distToMiddle = 15;</code>
        */
       public boolean hasDistToMiddle() {
-        return ((bitField0_ & 0x00100000) == 0x00100000);
+        return ((bitField0_ & 0x00004000) == 0x00004000);
       }
       /**
-       * <code>optional float distToMiddle = 21;</code>
+       * <code>optional float distToMiddle = 15;</code>
        */
       public float getDistToMiddle() {
         return distToMiddle_;
       }
       /**
-       * <code>optional float distToMiddle = 21;</code>
+       * <code>optional float distToMiddle = 15;</code>
        */
       public Builder setDistToMiddle(float value) {
-        bitField0_ |= 0x00100000;
+        bitField0_ |= 0x00004000;
         distToMiddle_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float distToMiddle = 21;</code>
+       * <code>optional float distToMiddle = 15;</code>
        */
       public Builder clearDistToMiddle() {
-        bitField0_ = (bitField0_ & ~0x00100000);
+        bitField0_ = (bitField0_ & ~0x00004000);
         distToMiddle_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private float posZ_ ;
-      /**
-       * <code>optional float posZ = 22;</code>
-       */
-      public boolean hasPosZ() {
-        return ((bitField0_ & 0x00200000) == 0x00200000);
-      }
-      /**
-       * <code>optional float posZ = 22;</code>
-       */
-      public float getPosZ() {
-        return posZ_;
-      }
-      /**
-       * <code>optional float posZ = 22;</code>
-       */
-      public Builder setPosZ(float value) {
-        bitField0_ |= 0x00200000;
-        posZ_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float posZ = 22;</code>
-       */
-      public Builder clearPosZ() {
-        bitField0_ = (bitField0_ & ~0x00200000);
-        posZ_ = 0F;
         onChanged();
         return this;
       }
 
       private float fps_ ;
       /**
-       * <code>optional float fps = 23;</code>
+       * <code>optional float fps = 16;</code>
        */
       public boolean hasFps() {
-        return ((bitField0_ & 0x00400000) == 0x00400000);
+        return ((bitField0_ & 0x00008000) == 0x00008000);
       }
       /**
-       * <code>optional float fps = 23;</code>
+       * <code>optional float fps = 16;</code>
        */
       public float getFps() {
         return fps_;
       }
       /**
-       * <code>optional float fps = 23;</code>
+       * <code>optional float fps = 16;</code>
        */
       public Builder setFps(float value) {
-        bitField0_ |= 0x00400000;
+        bitField0_ |= 0x00008000;
         fps_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float fps = 23;</code>
+       * <code>optional float fps = 16;</code>
        */
       public Builder clearFps() {
-        bitField0_ = (bitField0_ & ~0x00400000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         fps_ = 0F;
         onChanged();
         return this;
@@ -2492,31 +1874,31 @@ public final class Sensors_Message {
 
       private int count_ ;
       /**
-       * <code>optional int32 count = 24;</code>
+       * <code>optional int32 count = 17;</code>
        */
       public boolean hasCount() {
-        return ((bitField0_ & 0x00800000) == 0x00800000);
+        return ((bitField0_ & 0x00010000) == 0x00010000);
       }
       /**
-       * <code>optional int32 count = 24;</code>
+       * <code>optional int32 count = 17;</code>
        */
       public int getCount() {
         return count_;
       }
       /**
-       * <code>optional int32 count = 24;</code>
+       * <code>optional int32 count = 17;</code>
        */
       public Builder setCount(int value) {
-        bitField0_ |= 0x00800000;
+        bitField0_ |= 0x00010000;
         count_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 count = 24;</code>
+       * <code>optional int32 count = 17;</code>
        */
       public Builder clearCount() {
-        bitField0_ = (bitField0_ & ~0x00800000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         count_ = 0;
         onChanged();
         return this;
@@ -2588,18 +1970,16 @@ public final class Sensors_Message {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022proto_schema.proto\022\rTORCS_Sensors\"\235\003\n\007" +
-      "Sensors\022\r\n\005accel\030\001 \001(\002\022\020\n\010breaking\030\002 \001(\002" +
-      "\022\014\n\004gear\030\003 \001(\005\022\r\n\005steer\030\004 \001(\002\022\014\n\004meta\030\005 " +
-      "\001(\005\022\016\n\006clutch\030\006 \001(\002\022\r\n\005focus\030\007 \001(\005\022\r\n\005an" +
-      "gle\030\010 \001(\002\022\021\n\tcuLapTime\030\t \001(\002\022\016\n\006damage\030\n" +
-      " \001(\005\022\025\n\rdistFromStart\030\013 \001(\002\022\032\n\022totalDist" +
-      "FromStart\030\014 \001(\002\022\021\n\tdistRaced\030\r \001(\002\022\014\n\004fu" +
-      "el\030\016 \001(\002\022\023\n\013lastLapTime\030\017 \001(\002\022\017\n\007racePos" +
-      "\030\020 \001(\005\022\013\n\003rpm\030\021 \001(\002\022\016\n\006speedX\030\022 \001(\002\022\016\n\006s" +
-      "peedY\030\023 \001(\002\022\016\n\006speedZ\030\024 \001(\002\022\024\n\014distToMid" +
-      "dle\030\025 \001(\002\022\014\n\004posZ\030\026 \001(\002\022\013\n\003fps\030\027 \001(\002\022\r\n\005" +
-      "count\030\030 \001(\005B\021B\017Sensors_Message"
+      "\n\022proto_schema.proto\022\rTORCS_Sensors\"\302\002\n\007" +
+      "Sensors\022\r\n\005accel\030\001 \001(\002\022\017\n\007braking\030\002 \001(\002\022" +
+      "\014\n\004gear\030\003 \001(\005\022\026\n\016steerPredicted\030\004 \001(\002\022\025\n" +
+      "\rsteerExpected\030\005 \001(\002\022\r\n\005angle\030\006 \001(\002\022\021\n\tc" +
+      "uLapTime\030\007 \001(\002\022\025\n\rdistFromStart\030\010 \001(\002\022\032\n" +
+      "\022totalDistFromStart\030\t \001(\002\022\021\n\tdistRaced\030\n" +
+      " \001(\002\022\023\n\013lastLapTime\030\013 \001(\002\022\013\n\003rpm\030\014 \001(\002\022\016" +
+      "\n\006speedX\030\r \001(\002\022\016\n\006speedY\030\016 \001(\002\022\024\n\014distTo" +
+      "Middle\030\017 \001(\002\022\013\n\003fps\030\020 \001(\002\022\r\n\005count\030\021 \001(\005" +
+      "B\021B\017Sensors_Message"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2618,7 +1998,7 @@ public final class Sensors_Message {
     internal_static_TORCS_Sensors_Sensors_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TORCS_Sensors_Sensors_descriptor,
-        new java.lang.String[] { "Accel", "Breaking", "Gear", "Steer", "Meta", "Clutch", "Focus", "Angle", "CuLapTime", "Damage", "DistFromStart", "TotalDistFromStart", "DistRaced", "Fuel", "LastLapTime", "RacePos", "Rpm", "SpeedX", "SpeedY", "SpeedZ", "DistToMiddle", "PosZ", "Fps", "Count", });
+        new java.lang.String[] { "Accel", "Braking", "Gear", "SteerPredicted", "SteerExpected", "Angle", "CuLapTime", "DistFromStart", "TotalDistFromStart", "DistRaced", "LastLapTime", "Rpm", "SpeedX", "SpeedY", "DistToMiddle", "Fps", "Count", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -3,111 +3,68 @@ package com.sranasing.visualizer;
 import TORCS_Sensors.Sensors_Message;
 import TORCS_Sensors.Sensors_Message.Sensors;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
-import org.controlsfx.control.ListSelectionView;
-import org.controlsfx.control.Notifications;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import org.zeromq.ZMQ;
 
 public class FXMLController implements Initializable {
 
     @FXML
-    private GridPane gridPane;
+    private HBox root;
 
     @FXML
-    private JFXTextField accel;
+    private JFXComboBox<String> trackList, modelList;
 
     @FXML
-    private JFXTextField breaking;
+    private VBox graphList;
 
     @FXML
-    private JFXTextField gear;
+    private JFXButton simulation_button, load_data_button, settings_button;
 
     @FXML
-    private JFXTextField steer;
+    private StackPane load_data_pane;
 
     @FXML
-    private JFXTextField meta;
+    private StackPane simulation_pane;
 
     @FXML
-    private JFXTextField clutch;
+    private AnchorPane settings_pane, running_offline_pane, running_online_pane;
 
     @FXML
-    private JFXTextField focus;
+    private BorderPane run_pane, initializing_pane;
 
     @FXML
-    private JFXTextField angle;
+    private JFXTextField main_sim_folder_abspath;
 
     @FXML
-    private JFXTextField cuLapTime;
+    private JFXButton backButton;
 
     @FXML
-    private JFXTextField damage;
-
-    @FXML
-    private JFXTextField distFromStart;
-
-    @FXML
-    private JFXTextField totalDistFromStart;
-
-    @FXML
-    private JFXTextField distRaced;
-
-    @FXML
-    private JFXTextField fuel;
-
-    @FXML
-    private JFXTextField lastLapTime;
-
-    @FXML
-    private JFXTextField racePos;
-
-    @FXML
-    private JFXTextField rpm;
-
-    @FXML
-    private JFXTextField speedX;
-
-    @FXML
-    private JFXTextField speedY;
-
-    @FXML
-    private JFXTextField speedZ;
-
-    @FXML
-    private JFXTextField distToMiddle;
-
-    @FXML
-    private JFXTextField posZ;
-
-    @FXML
-    private JFXTextField fps;
-
-    @FXML
-    private JFXTextField count;
-
-    @FXML
-    private LineChart<Number, Number> chart;
-
-    @FXML
-    private ListSelectionView<Series<Number, Number>> sensorSelector;
-
-    @FXML
-    private LineChart<Number, Number> plot;
+    private JFXButton stopButton;
 
     //Initialize the context of the device
     private ZMQ.Context context;
@@ -121,34 +78,25 @@ public class FXMLController implements Initializable {
     //task used to update the sensors
     private Task updateStatusTask;
 
-    //data series used in the line chart
-    private Series<Number, Number> series;
+    private LapGraphController graphController;
 
-    //List containing all the available Sensors
-    private ObservableList<Series<Number, Number>> sensorDataList;
-
-    //Define the series used for the sensors
-    private Series<Number, Number> accel_Data;
-    private Series<Number, Number> breaking_Data;
-    private Series<Number, Number> gear_Data;
-    private Series<Number, Number> steer_Data;
-    private Series<Number, Number> angle_Data;
-    private Series<Number, Number> cuLapTime_Data;
-    private Series<Number, Number> distFromStart_Data;
-    private Series<Number, Number> totalDistFromStart_Data;
-    private Series<Number, Number> distRaced_Data;
-    private Series<Number, Number> lastLapTime_Data;
-    private Series<Number, Number> rpm_Data;
-    private Series<Number, Number> speedX_Data;
-    private Series<Number, Number> speedY_Data;
-    private Series<Number, Number> distToMiddle_Data;
-    private Series<Number, Number> fps_Data;
+    private List<LapGraphController> controllerList;
 
     //Constants
     private static final String SUBSCRIBER_PORT = "tcp://localhost:5555";
     private static final String SYNC_PORT = "tcp://localhost:5556";
     private static final String HANDSHAKE_INIT = "Init";
     private static final String HANDSHAKE_ACK = "SyncAck";
+
+    private float previousVal = 0;
+
+    private File torcsFolder;
+    private String runtimedFolderPath;
+    private String tracksFolderPath;
+    private String modelsFolderPath;
+    private String quickRaceFilePath;
+
+    private Task<Boolean> torcsTask;
 
     /**
      * Initialize the controller
@@ -158,182 +106,37 @@ public class FXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        intitializeSeries();
+        createLapGraph();
+        controllerList = new ArrayList<>();
 
-        initializeListView();
+        run_pane.toFront();
+        simulation_pane.toFront();
 
-        //Test Chart
-        series = new Series<>();
-        chart.getData().add(series);
+        createLoadGraph();
     }
 
-    /**
-     * Initialize the series that would hold the sensor data to be plotted
-     */
-    private void intitializeSeries() {
-        accel_Data = new Series<>();
-        accel_Data.setName("Acceleration");
-        breaking_Data = new Series<>();
-        breaking_Data.setName("Breaking");
-        gear_Data = new Series<>();
-        gear_Data.setName("Gear");
-        steer_Data = new Series<>();
-        steer_Data.setName("Steering");
-        angle_Data = new Series<>();
-        angle_Data.setName("Angle");
-        cuLapTime_Data = new Series<>();
-        cuLapTime_Data.setName("Current Lap Time");
-        distFromStart_Data = new Series<>();
-        distFromStart_Data.setName("Distance From Start");
-        totalDistFromStart_Data = new Series<>();
-        totalDistFromStart_Data.setName("Total Distance From Start");
-        distRaced_Data = new Series<>();
-        distRaced_Data.setName("Distance Raced");
-        lastLapTime_Data = new Series<>();
-        lastLapTime_Data.setName("Last Lap Time");
-        rpm_Data = new Series<>();
-        rpm_Data.setName("RPM");
-        speedX_Data = new Series<>();
-        speedX_Data.setName("SpeedX");
-        speedY_Data = new Series<>();
-        speedY_Data.setName("SpeedY");
-        distToMiddle_Data = new Series<>();
-        distToMiddle_Data.setName("Distance To Middle");
-        fps_Data = new Series<>();
-        fps_Data.setName("FPS");
+    private void createLapGraph() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LapGraph.fxml"));
+            AnchorPane graph = loader.load();
+            graphController = loader.getController();
+            graphList.getChildren().add(graph);
+        } catch (IOException ex) {
+            System.out.println("There was an issue loading the graph FXML file");
+        }
     }
 
-    private void initializeListView() {
-        sensorDataList = FXCollections.observableArrayList();
-        sensorDataList.addAll(
-                accel_Data,
-                breaking_Data,
-                gear_Data,
-                steer_Data,
-                angle_Data,
-                cuLapTime_Data,
-                distFromStart_Data,
-                totalDistFromStart_Data,
-                distRaced_Data,
-                lastLapTime_Data,
-                rpm_Data,
-                speedX_Data,
-                speedY_Data,
-                distToMiddle_Data,
-                fps_Data);
-
-        sensorSelector.setTargetItems(plot.getData());
-        sensorSelector.setSourceItems(sensorDataList);
+    private void createLoadGraph() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoadGraph.fxml"));
+            AnchorPane graph = loader.load();
+            load_data_pane.getChildren().add(graph);
+        } catch (IOException ex) {
+            System.out.println("There was an issue loading the graph FXML file");
+        }
     }
 
-    /**
-     * Get the task that handles the updating of the fields
-     *
-     * @return The task object
-     */
-    private Task<Sensors> getPortListenerTask() {
-        Task task = new Task<Sensors>() {
-            @Override
-            protected Sensors call() throws Exception {
-                Sensors message;
-                while (true) {
-                    if (isCancelled()) {
-                        break;
-                    }
-
-                    byte[] update = subscriber.recv();
-
-                    if (Arrays.equals(update, "END".getBytes())) {
-                        System.out.println("Ending updates");
-                        break;
-                    }
-
-                    try {
-                        message = Sensors_Message.Sensors.parseFrom(update);
-                        updateValue(message);
-                    } catch (InvalidProtocolBufferException ex) {
-                        System.out.println("Something went wrong");
-                        //Invalid data has been through the port
-                    }
-                }
-                return null;
-            }
-        };
-
-        task.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
-            updateSensors((Sensors) newValue);
-        });
-
-        return task;
-    }
-
-    /**
-     * Update sensors
-     *
-     * @param message message object updated with the last message
-     */
-    private void updateSensors(Sensors message) {
-        accel_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getAccel()));
-        breaking_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getBreaking()));
-        gear_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getGear()));
-        steer_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSteer()));
-        angle_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getAngle()));
-        cuLapTime_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getCuLapTime()));
-        distFromStart_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistFromStart()));
-        totalDistFromStart_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getTotalDistFromStart()));
-        distRaced_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistRaced()));
-        lastLapTime_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getLastLapTime()));
-        rpm_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getRpm()));
-        speedX_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSpeedX()));
-        speedY_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getSpeedY()));
-        distToMiddle_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getDistToMiddle()));
-        fps_Data.getData().add(new XYChart.Data<>(message.getCount(), message.getFps()));
-
-        accel.setText(Float.toString(message.getAccel()));
-        breaking.setText(Float.toString(message.getBreaking()));
-        gear.setText(Integer.toString(message.getGear()));
-        steer.setText(Float.toString(message.getSteer()));
-        meta.setText(Integer.toString(message.getMeta()));
-        clutch.setText(Float.toString(message.getClutch()));
-        focus.setText(Integer.toString(message.getFocus()));
-        angle.setText(Float.toString(message.getAngle()));
-        cuLapTime.setText(Float.toString(message.getCuLapTime()));
-        damage.setText(Integer.toString(message.getDamage()));
-        distFromStart.setText(Float.toString(message.getDistFromStart()));
-        totalDistFromStart.setText(Float.toString(message.getTotalDistFromStart()));
-        distRaced.setText(Float.toString(message.getDistRaced()));
-        fuel.setText(Float.toString(message.getFuel()));
-        lastLapTime.setText(Float.toString(message.getLastLapTime()));
-        racePos.setText(Integer.toString(message.getRacePos()));
-        rpm.setText(Float.toString(message.getRpm()));
-        speedX.setText(Float.toString(message.getSpeedX()));
-        speedY.setText(Float.toString(message.getSpeedY()));
-        speedZ.setText(Float.toString(message.getSpeedZ()));
-        distToMiddle.setText(Float.toString(message.getDistToMiddle()));
-        posZ.setText(Float.toString(message.getPosZ()));
-        fps.setText(Float.toString(message.getFps()));
-        count.setText(Integer.toString(message.getCount()));
-    }
-
-    /**
-     * Create a notification with the given text
-     *
-     * @param text Text to be displayed in the notification
-     */
-    private void notification(String text) {
-        Notifications.create()
-                .owner(gridPane)
-                .text(text)
-                .hideAfter(Duration.seconds(3))
-                .position(Pos.BOTTOM_RIGHT)
-                .showInformation();
-    }
-
-    /**
-     * Create context, set up connections, and perform handshake
-     */
-    @FXML
-    private void connect() {
+    private boolean performHandshake() {
         //Create the context
         context = ZMQ.context(1);
 
@@ -355,41 +158,260 @@ public class FXMLController implements Initializable {
             String recvString = subscriber.recvStr(0);
             if (recvString.equals(HANDSHAKE_INIT)) {
                 sync_socket.send(HANDSHAKE_ACK);
-                break;
+                return true;
             }
         }
+    }
 
+    /**
+     * Get the task that handles the updating of the fields
+     *
+     * @return The task object
+     */
+    private Task<Sensors> getPortListenerTask() {
+        Task task = new Task<Sensors>() {
+            @Override
+            protected Sensors call() throws Exception {
+                if (performHandshake()) {
+                    updateMessage("Connection Complete");
+                } else {
+                    return null;
+                }
+
+                Sensors message;
+                while (true) {
+                    if (isCancelled()) {
+                        break;
+                    }
+
+                    byte[] update = subscriber.recv();
+
+                    if (Arrays.equals(update, "END".getBytes())) {
+                        System.out.println("Ending updates");
+                        break;
+                    }
+
+                    try {
+                        message = Sensors_Message.Sensors.parseFrom(update);
+                        updateValue(message);
+                    } catch (InvalidProtocolBufferException ex) {
+                        System.out.println("Something went wrong");
+                        //Invalid data has been sent through the port
+                    }
+                }
+                return null;
+            }
+        };
+
+        task.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+            updateSensors((Sensors) newValue);
+        });
+
+        task.messageProperty().addListener((observable, oldValue, newValue) -> {
+            running_online_pane.toFront();
+        });
+
+        return task;
+    }
+
+    /**
+     * Update sensors
+     *
+     * @param message message object updated with the last message
+     */
+    private void updateSensors(Sensors message) {
+        if (message.getTotalDistFromStart() > 0) { //race has started
+            if (message.getCuLapTime() < previousVal) { //new lap started
+                System.out.println("New Lap Started");
+                graphController.finishLap();
+                controllerList.add(graphController);
+                createLapGraph();
+            }
+            addData(message);
+        }
+        previousVal = message.getCuLapTime();
+    }
+
+    private void addData(Sensors message) {
+        graphController.addData(message);
+    }
+
+    private Task getTORCSTask() {
+        return new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+                ProcessBuilder builder = new ProcessBuilder(
+                        "cmd.exe", "/c",
+                        String.format("cd \"%s\\runtimed\" && wtorcs.exe -m quickrace.xml", torcsFolder.getAbsolutePath()));
+                builder.redirectErrorStream(true);
+                Process p = builder.start();
+
+                try (BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                    String line;
+                    while (true) {
+                        if (isCancelled()) {
+                            p.destroy();
+                            break;
+                        }
+                        line = r.readLine();
+                        if (line == null) {;
+                            break;
+                        }
+                        System.out.println(line);
+                    }
+                    return true;
+                }
+            }
+        };
+    }
+
+    /**
+     * Create context, set up connections, and perform handshake
+     */
+    private void connect() {
         //Get updates from publisher
         updateStatusTask = getPortListenerTask();
         Thread th = new Thread(updateStatusTask);
         th.setDaemon(true);
         th.start();
-
-        //notification("Successfully Connected");
     }
 
     /**
      * Close the sockets and connections
      */
-    @FXML
-    private void reset() {
+    private void closeConnection() {
         if (updateStatusTask.isRunning()) {
             updateStatusTask.cancel(false);
         }
         subscriber.close();
         sync_socket.close();
         context.term();
+    }
 
-        notification("Connection Reset\nReconnect to continue");
+    public void killTORCS() {
+        try {
+            Runtime.getRuntime().exec("taskkill /F /IM wtorcs.exe");
+        } catch (IOException ex) {
+            System.out.println("Exception thrown here");
+        }
     }
 
     /**
      * Clear the fields
      */
     @FXML
-    private void clear() {
-        gridPane.getChildren().stream().filter((node) -> (node instanceof JFXTextField)).forEachOrdered((node) -> {
-            ((JFXTextField) node).clear();
-        });
+    private void stop() {
+        killTORCS();
+
+        if (torcsTask != null && torcsTask.isRunning()) {
+            torcsTask.cancel(true);
+        }
+
+        graphController.finishLap();
+        closeConnection();
+        controllerList.add(graphController);
+        backButton.setVisible(true);
+        stopButton.setVisible(false);
+
+        //Save data
+        saveData(controllerList);
+
     }
+
+    @FXML
+    private void saveData(List<LapGraphController> lapControllers) {
+        Utils.saveToCSV(lapControllers, modelList.getValue() + "_" + trackList.getValue().split("--")[1]);
+    }
+
+    @FXML
+    private void selectFolder() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose TORCS Folder");
+        torcsFolder = directoryChooser.showDialog(root.getScene().getWindow());
+
+        if (torcsFolder == null) {
+            //No Directory selected
+        } else {
+            String torcsPath = torcsFolder.getAbsolutePath();
+            main_sim_folder_abspath.setText(torcsPath);
+            runtimedFolderPath = torcsPath + "\\runtimed";
+            tracksFolderPath = runtimedFolderPath + "\\tracks";
+            modelsFolderPath = torcsPath + "\\networks";
+            quickRaceFilePath = torcsPath + "\\runtimed\\quickrace.xml";
+
+            File tracksFolder = new File(tracksFolderPath);
+            trackList.getItems().clear();
+            for (File trackType : tracksFolder.listFiles()) {
+                for (File track : trackType.listFiles()) {
+                    trackList.getItems().add(String.format("%s--%s", trackType.getName(), track.getName()));
+                }
+            }
+
+            File modelsFolder = new File(modelsFolderPath);
+            modelList.getItems().clear();
+            modelList.getItems().setAll(modelsFolder.list());
+        }
+    }
+
+    @FXML
+    private void run() {
+        initializing_pane.toFront();
+
+        runRace();
+        if (torcsFolder == null) {
+            System.out.println("No Directory Selected");
+        } else {
+            torcsTask = getTORCSTask();
+
+            Thread th = new Thread(torcsTask);
+            th.setDaemon(true);
+            th.start();
+            connect();
+            backButton.setVisible(false);
+            stopButton.setVisible(true);
+        }
+    }
+
+    private void runRace() {
+        //Update track
+        try {
+            String[] trackDetails = trackList.getValue().split("--");
+            Utils.updateTrack(trackDetails[1], trackDetails[0], quickRaceFilePath);
+        } catch (Exception ex) {
+            //Create new exception message
+            System.out.println("Had trouble with this");
+        }
+
+        //Remove existing model files (if any)
+        Utils.removeExistingModelFiles(runtimedFolderPath);
+
+        try {
+            //Move Model File
+            Utils.moveModelFiles(modelList.getValue(), modelsFolderPath, runtimedFolderPath);
+        } catch (Exception ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void handleMainMenuButtons(ActionEvent event) {
+        if (event.getSource() == simulation_button) {
+            simulation_pane.toFront();
+        } else if (event.getSource() == load_data_button) {
+            load_data_pane.toFront();
+        } else if (event.getSource() == settings_button) {
+            settings_pane.toFront();
+        }
+    }
+
+    @FXML
+    void returnToRunPane(ActionEvent event) {
+        graphList.getChildren().clear();
+        createLapGraph();
+        controllerList = new ArrayList<>();
+
+        run_pane.toFront();
+        simulation_pane.toFront();
+    }
+
 }
