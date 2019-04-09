@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="473.0" y="717.0">com.sranasing.visualizer.Tuple</node>
+    <node x="281.0" y="717.0">com.sranasing.visualizer.MainApp</node>
+    <node x="0.0" y="717.0">com.sranasing.visualizer.LoadGraphController</node>
+    <node x="0.0" y="468.0">com.sranasing.visualizer.SensorData</node>
+    <node x="325.0" y="0.0">com.sranasing.visualizer.Utils</node>
+    <node x="0.0" y="0.0">com.sranasing.visualizer.FXMLController</node>
+    <node x="624.0" y="468.0">TORCS_Sensors.Sensors_Message</node>
+    <node x="343.0" y="468.0">com.sranasing.visualizer.LapGraphController</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="524.5" y="285.0" />
+  <SelectedNodes>
+    <node>com.sranasing.visualizer.SensorData</node>
+    <node>com.sranasing.visualizer.LapGraphController</node>
+    <node>com.sranasing.visualizer.Utils</node>
+    <node>TORCS_Sensors.Sensors_Message</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
